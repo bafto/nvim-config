@@ -32,3 +32,7 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", function()
 	vim.lsp.buf.format()
 end)
+
+-- control + s saves the current buffer (muscle memory)
+vim.keymap.set("n", "<C-s>", ":w<CR>")
+vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a")
