@@ -29,6 +29,6 @@ vim.keymap.set("v", "<leader>d", "\"_d")
 vim.keymap.set("n", "Q", "<nop>")
 
 -- <leader>f formats the current buffer
-vim.keymap.set("n", "<leader>f", function()
+vim.keymap.set("n", "<C-f>", function()
 	vim.lsp.buf.format()
 end)
