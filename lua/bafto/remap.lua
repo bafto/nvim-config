@@ -36,3 +36,6 @@ end)
 -- control + s saves the current buffer (muscle memory)
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a")
+
+-- U for redo because <C-R> is already taken by harpoon
+vim.keymap.set("n", "U", "<C-R>")
