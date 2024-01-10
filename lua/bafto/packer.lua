@@ -61,4 +61,6 @@ return require('packer').startup(function(use)
 	use 'ThePrimeagen/vim-be-good'
 
 	use 'github/copilot.vim'
+
+	use 'jiangmiao/auto-pairs'
 end)
