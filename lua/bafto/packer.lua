@@ -63,4 +63,9 @@ return require('packer').startup(function(use)
 	use 'github/copilot.vim'
 
 	use 'jiangmiao/auto-pairs'
+
+	use {
+		'scalameta/nvim-metals',
+		requires = { 'nvim-lua/plenary.nvim' }
+	}
 end)
