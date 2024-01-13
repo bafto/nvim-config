@@ -46,3 +46,5 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
   }),
 })
+
+require('lspconfig').metals.setup{}
