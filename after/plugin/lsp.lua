@@ -67,6 +67,7 @@ vim.api.nvim_create_autocmd(
 	"BufWritePost",
 	{
 		group = "AutoFormat",
+		pattern = "*.go",
 		callback = function()
 			local params = vim.lsp.util.make_range_params()
 			params.context = { only = { "source.organizeImports" } }
