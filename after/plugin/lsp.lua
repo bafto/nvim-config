@@ -1,20 +1,5 @@
 local lsp_zero = require('lsp-zero')
 
-lsp_zero.on_attach(function(client, bufnr)
-	local opts = { buffer = bufnr, remap = false }
-
-	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-	vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-	vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-	vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-	vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-	vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-	vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-	vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-	vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-end)
-
 require('mason').setup({})
 require('mason-lspconfig').setup({
 	ensure_installed = { 'tsserver', 'eslint', 'gopls', 'clangd', 'cmake', 'dockerls', 'html', 'jdtls', 'pyright', 'sqls', 'lua_ls' },
@@ -65,14 +50,6 @@ lspconfig.gopls.setup {
 
 lspconfig.clangd.setup {}
 
-lsp_zero.on_attach(function(client, bufnr)
-	lsp_zero.default_keymaps({ buffer = bufnr })
-
-	if client.supports_method('textDocument/formatting') then
-		require('lsp-format').on_attach(client)
-	end
-end)
-
 vim.api.nvim_create_augroup("AutoImports", {})
 
 vim.api.nvim_create_autocmd(
@@ -95,3 +72,21 @@ vim.api.nvim_create_autocmd(
 		end
 	}
 )
+
+-- only call on_attach ones, as the last one will overwrite the previous ones
+lsp_zero.on_attach(function(client, bufnr)
+	-- format using the language server
+	if client.supports_method('textDocument/formatting') then
+		require('lsp-format').on_attach(client)
+	end
+
+	-- use telescope for some lsp stuff
+	local telescope = require('telescope.builtin')
+
+	vim.keymap.set('n', 'gr', telescope.lsp_references)
+	vim.keymap.set('n', 'gd', telescope.lsp_definitions)
+	vim.keymap.set('n', 'gi', telescope.lsp_implementations)
+
+	-- call default_keymaps last to not overwrite anything above
+	lsp_zero.default_keymaps({ buffer = bufnr })
+end)
