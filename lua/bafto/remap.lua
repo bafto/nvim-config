@@ -39,3 +39,6 @@ vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a")
 
 -- U for redo because <C-R> is already taken by harpoon
 vim.keymap.set("n", "U", "<C-R>")
+
+-- <leader>ee for if err != nil in Go
+vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>jo<Esc>")
