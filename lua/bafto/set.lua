@@ -29,3 +29,34 @@ vim.opt.updatetime = 50
 -- vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
+
+-- persistent undo
+
+-- Function to create the undo directory if it doesn't exist
+local function setup_undo_directory()
+	local home_directory
+
+	-- Check the operating system
+	if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+		-- Windows
+		home_directory = vim.fn.substitute(vim.fn.expand("$USERPROFILE"), "\\", "/", "g")
+	else
+		-- Unix-like systems
+		home_directory = vim.fn.expand("~")
+	end
+
+	local undo_directory = home_directory .. '/.vimundo'
+
+	-- Check if the directory exists
+	if vim.fn.isdirectory(undo_directory) == 0 then
+		-- If not, create it
+		vim.fn.mkdir(undo_directory, 'p')
+	end
+end
+
+-- Call the setup function to create the undo directory
+setup_undo_directory()
+
+-- Set undo history to the specified directory
+vim.o.undodir = vim.fn.expand('~/.nvimundo')
+vim.o.undofile = true
