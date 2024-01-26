@@ -48,7 +48,10 @@ lspconfig.gopls.setup {
 	},
 }
 
-lspconfig.clangd.setup {}
+lspconfig.clangd.setup {
+	cmd = { 'clangd', '--background-index' },
+	root_dir = lspconfig.util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git', '.clangd', '.clang-format')
+}
 
 vim.api.nvim_create_augroup("AutoImports", {})
 
