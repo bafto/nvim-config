@@ -53,6 +53,9 @@ lspconfig.clangd.setup {
 	root_dir = lspconfig.util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git', '.clangd', '.clang-format')
 }
 
+lspconfig.tsserver.setup {}
+lspconfig.eslint.setup {}
+
 vim.api.nvim_create_augroup("AutoImports", {})
 
 vim.api.nvim_create_autocmd(
