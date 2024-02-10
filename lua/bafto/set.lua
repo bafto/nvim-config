@@ -60,3 +60,6 @@ setup_undo_directory()
 -- Set undo history to the specified directory
 vim.o.undodir = vim.fn.expand('~/.nvimundo')
 vim.o.undofile = true
+
+-- update diagnostics in insert mode
+vim.diagnostic.update_in_insert = true
