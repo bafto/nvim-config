@@ -59,7 +59,7 @@ lspconfig.clangd.setup {
 		'--header-insertion=never',
 		'--completion-style=detailed',
 	},
-	root_dir = lspconfig.util.root_pattern('.git', '.clangd', '.clang-format')
+	root_dir = lspconfig.util.root_pattern('compile_commands.json', '.git', '.clangd', '.clang-format')
 }
 
 lspconfig.tsserver.setup {}
