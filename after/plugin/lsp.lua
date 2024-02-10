@@ -49,8 +49,17 @@ lspconfig.gopls.setup {
 }
 
 lspconfig.clangd.setup {
-	cmd = { 'clangd', '--background-index' },
-	root_dir = lspconfig.util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git', '.clangd', '.clang-format')
+	cmd = {
+		'clangd',
+		'--background-index',
+		'-j=2',
+		'--clang-tidy',
+		'--enable-config',
+		'--all-scopes-completion',
+		'--header-insertion=never',
+		'--completion-style=detailed',
+	},
+	root_dir = lspconfig.util.root_pattern('.git', '.clangd', '.clang-format')
 }
 
 lspconfig.tsserver.setup {}
@@ -92,6 +101,10 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set('n', 'gr', telescope.lsp_references)
 	vim.keymap.set('n', 'gd', telescope.lsp_definitions)
 	vim.keymap.set('n', 'gi', telescope.lsp_implementations)
+	vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename)
+	vim.keymap.set('n', '<leader>lwf', function()
+		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	end)
 
 	-- call default_keymaps last to not overwrite anything above
 	lsp_zero.default_keymaps({ buffer = bufnr })
