@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", ":NvimTreeToggle<CR>")
 
 -- enables moving of highlighted sections with J and K (awesome)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
