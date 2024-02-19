@@ -27,4 +27,23 @@ require('nvim-tree').setup {
 	update_focused_file = {
 		enable = true,
 	},
+	sort = {
+		sorter = "extension",
+	},
+	diagnostics = {
+		enable = true,
+		show_on_dirs = true,
+	},
+	filters = {
+		git_ignored = false,
+	},
+	renderer = {
+		icons = {
+			glyphs = {
+				git = {
+					ignored = "",
+				}
+			}
+		}
+	}
 }

@@ -44,9 +44,9 @@ vim.keymap.set("n", "U", "<C-R>")
 vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>jo<Esc>")
 
 -- <ENTER> and <S-ENTER> for newlines
-vim.keymap.set("n", "<ENTER>", "o<Esc>")
+vim.keymap.set("n", "<ENTER>", "i<CR><ESC>")
 -- this might not work in every terminal
-vim.keymap.set("n", "<S-ENTER>", "O<Esc>")
+vim.keymap.set("n", "<S-ENTER>", "i<CR><ESC>k$")
 
 -- <ENTER> to replace with newline in visual mode
 vim.keymap.set("v", "<ENTER>", "c<ENTER><ESC>kA")

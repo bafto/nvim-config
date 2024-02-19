@@ -105,6 +105,7 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set('n', '<leader>lwf', function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end)
+	vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 
 	-- call default_keymaps last to not overwrite anything above
 	lsp_zero.default_keymaps({ buffer = bufnr })
