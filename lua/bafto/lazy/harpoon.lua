@@ -1,27 +1,9 @@
-local harpoon = require("harpoon")
-
-harpoon:setup()
-
--- Remaps
-
-vim.keymap.set("n", "<C-A>", function() harpoon:list():append() end)
-
-vim.keymap.set("n", "<C-E>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-R>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<C-T>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<C-Z>", function() harpoon:list():select(4) end)
-
--- Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set("n", "<C-J>", function() harpoon:list():prev() end)
-vim.keymap.set("n", "<C-K>", function() harpoon:list():next() end)
-
--- Telescope as UI
-
-local conf = require("telescope.config").values
-local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
-
 local function toggle_telescope(harpoon_files)
+	local harpoon = require("harpoon")
+	local conf = require("telescope.config").values
+	local actions = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
+
 	local file_paths = {}
 	for _, item in ipairs(harpoon_files.items) do
 		table.insert(file_paths, item.value)
@@ -73,7 +55,26 @@ local function toggle_telescope(harpoon_files)
 	}):find()
 end
 
--- use telescope as UI
-vim.keymap.set("n", "<C-Q>", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
--- use harpoon as UI
---vim.keymap.set("n", "<C-Q>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+return {
+	'ThePrimeagen/harpoon',
+
+	branch = 'harpoon2',
+
+	dependencies = {
+		'nvim-lua/plenary.nvim',
+	},
+
+	keys = {
+		{ '<C-A>', function() require('harpoon'):list():append() end },
+		{ '<C-E>', function() require('harpoon'):list():select(1) end },
+		{ '<C-R>', function() require('harpoon'):list():select(2) end },
+		{ '<C-T>', function() require('harpoon'):list():select(3) end },
+		{ '<C-Z>', function() require('harpoon'):list():select(4) end },
+		{ '<C-J>', function() require('harpoon'):list():prev() end },
+		{ '<C-K>', function() require('harpoon'):list():next() end },
+		-- use telescope as UI
+		{ "<C-Q>", function() toggle_telescope(require('harpoon'):list()) end, { desc = "Open harpoon window" } },
+		-- use harpoon as UI
+		--{ "<C-Q>", function() require('harpoon').ui:toggle_quick_menu(require('harpoon'):list()) end },
+	},
+}

@@ -15,6 +15,8 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- <leader>p is now like p but the previous register is saved
 vim.keymap.set("x", "<leader>p", "\"_dP")
+-- <leader>ps now pastes from system clipboard
+vim.keymap.set("n", "<leader>ps", "\"+p")
 
 -- <leader>y yanks to system clipboard
 vim.keymap.set("n", "<leader>y", "\"+y")
@@ -50,3 +52,6 @@ vim.keymap.set("n", "<S-ENTER>", "i<CR><ESC>k$")
 
 -- <ENTER> to replace with newline in visual mode
 vim.keymap.set("v", "<ENTER>", "c<ENTER><ESC>kA")
+
+-- open lazy
+vim.keymap.set("n", "<leader>lazy", ":Lazy<CR>")

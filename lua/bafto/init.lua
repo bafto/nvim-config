@@ -1,3 +1,3 @@
 require("bafto.set")
 require("bafto.remap")
-require("bafto.packer")
+require("bafto.lazy_init")
