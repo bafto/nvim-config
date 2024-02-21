@@ -62,6 +62,7 @@ lspconfig.clangd.setup {
 	root_dir = lspconfig.util.root_pattern('compile_commands.json', '.git', '.clangd', '.clang-format')
 }
 
+lspconfig.html.setup {}
 lspconfig.tsserver.setup {}
 lspconfig.eslint.setup {}
 
@@ -106,6 +107,12 @@ lsp_zero.on_attach(function(client, bufnr)
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end)
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover)
+	vim.keymap.set('n', '<leader>qf', function()
+		vim.lsp.buf.code_action({
+			filter = function(a) return a.isPreferred end,
+			apply = true,
+		})
+	end)
 
 	-- call default_keymaps last to not overwrite anything above
 	lsp_zero.default_keymaps({ buffer = bufnr })

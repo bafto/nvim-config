@@ -10,7 +10,7 @@ return require('packer').startup(function(use)
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.5',
 		-- or                            , branch = '0.1.x',
-		requires = { { 'nvim-lua/plenary.nvim' } }
+		requires = { { 'nvim-lua/plenary.nvim' }, },
 	}
 
 	use {
@@ -18,12 +18,18 @@ return require('packer').startup(function(use)
 		as = 'vscode',
 		config = function()
 			vim.cmd('colorscheme vscode')
-		end
+		end,
 	}
 
 	use {
 		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate'
+		run = ':TSUpdate',
+	}
+	use {
+		'nvim-treesitter/playground',
+		requires = {
+			'nvim-treesitter/nvim-treesitter',
+		},
 	}
 
 	use {
@@ -88,5 +94,33 @@ return require('packer').startup(function(use)
 		requires = {
 			{ 'kyazdani42/nvim-web-devicons' },
 		},
+	}
+
+	use {
+		'windwp/nvim-ts-autotag',
+		requires = {
+			{ 'nvim-treesitter/nvim-treesitter' }
+		},
+	}
+
+	use {
+		'folke/twilight.nvim',
+		requires = {
+			{ 'nvim-treesitter/nvim-treesitter' }
+		}
+	}
+
+	use {
+		'folke/zen-mode.nvim',
+		requires = {
+			{ 'folke/twilight.nvim' }
+		}
+	}
+
+	use {
+		'folke/todo-comments.nvim',
+		requires = {
+			{ 'nvim-lua/plenary.nvim' }
+		}
 	}
 end)
