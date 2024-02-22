@@ -53,7 +53,11 @@ return {
 						}
 					}
 				}
-			}
+			},
+			git = {
+				enable = true,
+				timeout = 1000,
+			},
 		}
 	end,
 }
