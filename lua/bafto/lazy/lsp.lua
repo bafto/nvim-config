@@ -161,6 +161,10 @@ return {
 						apply = true,
 					})
 				end)
+				-- <C-f> formats the current buffer
+				vim.keymap.set("n", "<C-f>", function()
+					vim.lsp.buf.format()
+				end)
 
 				-- call default_keymaps last to not overwrite anything above
 				lsp_zero.default_keymaps({ buffer = bufnr })

@@ -31,11 +31,6 @@ vim.keymap.set("v", "<leader>d", "\"_d")
 -- better safe than sorry
 vim.keymap.set("n", "Q", "<nop>")
 
--- <C-f> formats the current buffer
-vim.keymap.set("n", "<C-f>", function()
-	vim.lsp.buf.format()
-end)
-
 -- control + s saves the current buffer (muscle memory)
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a")
@@ -56,3 +51,14 @@ vim.keymap.set("v", "<ENTER>", "c<ENTER><ESC>kA")
 
 -- open lazy
 vim.keymap.set("n", "<leader>lazy", ":Lazy<CR>")
+
+-- move window with <C-HJKL>
+vim.keymap.set("n", "<C-H>", "<C-W><C-H>")
+vim.keymap.set("n", "<C-J>", "<C-W><C-J>")
+vim.keymap.set("n", "<C-K>", "<C-W><C-K>")
+vim.keymap.set("n", "<C-L>", "<C-W><C-L>")
+-- split horizontally with just <C-W>k instead of K
+vim.keymap.set("n", "<C-W>k", "<C-W>K")
+
+-- replace the default <C-L> with <C-C> to clear search highlights
+vim.keymap.set("n", "<C-C>", "<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>")

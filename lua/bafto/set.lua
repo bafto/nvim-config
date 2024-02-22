@@ -53,7 +53,6 @@ local function setup_undo_directory()
 		vim.fn.mkdir(undo_directory, 'p')
 	end
 end
-
 -- Call the setup function to create the undo directory
 setup_undo_directory()
 
