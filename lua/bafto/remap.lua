@@ -45,10 +45,10 @@ vim.keymap.set("n", "U", "<C-R>")
 -- <leader>ee for if err != nil in Go
 vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>jo<Esc>")
 
--- <ENTER> and <S-ENTER> for newlines
-vim.keymap.set("n", "<ENTER>", "i<CR><ESC>")
+-- <ENTER> for newlines
+vim.keymap.set("n", "<ENTER>", "o<ESC>")
 -- this might not work in every terminal
-vim.keymap.set("n", "<S-ENTER>", "i<CR><ESC>k$")
+-- vim.keymap.set("n", "<S-ENTER>", "O<ESC>")
 
 -- <ENTER> to replace with newline in visual mode
 vim.keymap.set("v", "<ENTER>", "c<ENTER><ESC>kA")
