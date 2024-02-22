@@ -27,6 +27,7 @@ choco upgrade chocolatey -y
 choco install neovim -y
 choco install ripgrep -y
 choco install fd -y
+choco install make -y
 
 git clone https://github.com/bafto/nvim-config.git C:/Users/<username>/AppData/Local/nvim
 ```
