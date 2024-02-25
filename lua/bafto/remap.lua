@@ -61,4 +61,7 @@ vim.keymap.set("n", "<C-L>", "<C-W><C-L>")
 vim.keymap.set("n", "<C-W>k", "<C-W>K")
 
 -- replace the default <C-L> with <C-C> to clear search highlights
-vim.keymap.set("n", "<C-C>", "<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>")
+vim.keymap.set("n", "<C-C>", function()
+	vim.lsp.buf.clear_references()
+	return "<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>"
+end, { expr = true })

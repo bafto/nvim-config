@@ -165,6 +165,14 @@ return {
 				vim.keymap.set("n", "<C-f>", function()
 					vim.lsp.buf.format()
 				end)
+				local highlight_supported = client.supports_method('textDocument/documentHighlight')
+				vim.keymap.set('n', '<leader>hr', function()
+					if highlight_supported then
+						vim.lsp.buf.document_highlight()
+					else
+						print('Document Highlight not supported')
+					end
+				end)
 
 				-- call default_keymaps last to not overwrite anything above
 				lsp_zero.default_keymaps({ buffer = bufnr })
