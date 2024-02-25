@@ -62,3 +62,6 @@ vim.o.undofile = true
 
 -- update diagnostics in insert mode
 vim.diagnostic.update_in_insert = true
+
+-- no invisible end of line
+vim.cmd("set nofixendofline")
