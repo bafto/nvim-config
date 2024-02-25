@@ -138,9 +138,9 @@ return {
 	},
 
 	keys = {
-		{ '<C-A>', function() require('harpoon'):list():append() end },
-		{ '<C-B>', function() require('harpoon'):list():prev() end },
-		{ '<C-N>', function() require('harpoon'):list():next() end },
+		{ '<C-A>', function() require('harpoon'):list():append() end,          { desc = 'Add to harpoon' } },
+		{ '<C-B>', function() require('harpoon'):list():prev() end,            { desc = 'Harpoon previous' } },
+		{ '<C-N>', function() require('harpoon'):list():next() end,            { desc = 'Harpoon next' } },
 		-- use telescope as UI
 		{ "<C-Q>", function() toggle_telescope(require('harpoon'):list()) end, { desc = "Open harpoon window" } },
 		-- use harpoon as UI

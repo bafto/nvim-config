@@ -6,7 +6,7 @@ return {
 	},
 
 	keys = {
-		{ '<leader>t', ':TroubleToggle<CR>' },
+		{ '<leader>t', ':TroubleToggle<CR>', { desc = 'toggle trouble' } },
 	},
 
 	cmd = {

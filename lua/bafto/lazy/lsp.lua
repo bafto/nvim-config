@@ -147,24 +147,24 @@ return {
 				-- use telescope for some lsp stuff
 				local telescope = require('telescope.builtin')
 
-				vim.keymap.set('n', 'gr', telescope.lsp_references)
-				vim.keymap.set('n', 'gd', telescope.lsp_definitions)
-				vim.keymap.set('n', 'gi', telescope.lsp_implementations)
-				vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename)
+				vim.keymap.set('n', 'gr', telescope.lsp_references, { desc = 'goto references' })
+				vim.keymap.set('n', 'gd', telescope.lsp_definitions, { desc = 'goto definition' })
+				vim.keymap.set('n', 'gi', telescope.lsp_implementations, { desc = 'goto implementation' })
+				vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { desc = 'rename' })
 				vim.keymap.set('n', '<leader>lwf', function()
 					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-				end)
-				vim.keymap.set('n', 'K', vim.lsp.buf.hover)
+				end, { desc = 'list workspace folders' })
+				vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'hover' })
 				vim.keymap.set('n', '<leader>qf', function()
 					vim.lsp.buf.code_action({
 						filter = function(a) return a.isPreferred end,
 						apply = true,
 					})
-				end)
+				end, { desc = 'quickfix' })
 				-- <C-f> formats the current buffer
 				vim.keymap.set("n", "<C-f>", function()
 					vim.lsp.buf.format()
-				end)
+				end, { desc = "Format" })
 				local highlight_supported = client.supports_method('textDocument/documentHighlight')
 				vim.keymap.set('n', '<leader>hr', function()
 					if highlight_supported then
@@ -172,7 +172,7 @@ return {
 					else
 						print('Document Highlight not supported')
 					end
-				end)
+				end, { desc = 'highlight references' })
 
 				-- call default_keymaps last to not overwrite anything above
 				lsp_zero.default_keymaps({ buffer = bufnr })

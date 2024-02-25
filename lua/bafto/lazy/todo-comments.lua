@@ -8,6 +8,6 @@ return {
 	config = function()
 		require('todo-comments').setup {}
 
-		vim.keymap.set('n', '<leader>todo', ':TodoTelescope<CR>');
+		vim.keymap.set('n', '<leader>todo', ':TodoTelescope<CR>', { desc = 'Open todo' });
 	end,
 }

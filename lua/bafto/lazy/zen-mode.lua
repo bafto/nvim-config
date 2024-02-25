@@ -6,10 +6,10 @@ return {
 	},
 
 	keys = {
-		{ '<leader>zen', ':ZenMode<CR>' },
-	},
+		{ '<leader>zen', ':ZenMode<CR>', { desc = 'toggle zen mode' } },
 
-	cmd = {
-		'ZenMode',
-	},
+		cmd = {
+			'ZenMode',
+		},
+	}
 }

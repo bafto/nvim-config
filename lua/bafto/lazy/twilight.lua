@@ -2,7 +2,7 @@ return {
 	'folke/twilight.nvim',
 
 	keys = {
-		{ '<leader>focus', ':Twilight<CR>' },
+		{ '<leader>focus', ':Twilight<CR>', { desc = 'toggle twilight' } },
 	},
 
 	cmd = {
