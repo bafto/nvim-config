@@ -9,8 +9,9 @@ return {
 		{ '<leader>dsi', function() require('dap').step_into() end,         { desc = 'debug step into' } },
 		{ '<leader>db',  function() require('dap').toggle_breakpoint() end, { desc = 'debug toggle breakpoint' } },
 		{ '<leader>dB',  function() require('dap').set_breakpoint() end,    { desc = 'debug set breakpoint' } },
-		{ '<leader>dr',  function() require('dap').repl.open() end,         { desc = 'debug repl' } },
+		{ '<leader>dtr', function() require('dap').repl.toggle() end,       { desc = 'debug repl' } },
 		{ '<leader>ddc', function() require('dap').disconnect() end,        { desc = 'debug disconnect' } },
+		{ '<leader>dr',  function() require('dap').restart() end,           { desc = 'debug restart' } },
 	},
 
 	config = function()
