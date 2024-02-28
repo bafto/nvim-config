@@ -47,8 +47,8 @@ return {
 				},
 				formatting = lsp_zero.cmp_format(),
 				mapping = cmp.mapping.preset.insert({
-					['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
-					['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+					['<C-K>'] = cmp.mapping.select_prev_item(cmp_select),
+					['<C-J>'] = cmp.mapping.select_next_item(cmp_select),
 					['<C-L>'] = cmp.mapping.confirm({ select = true }),
 					['<C-Space>'] = cmp.mapping.complete(),
 				}),
@@ -150,6 +150,8 @@ return {
 				vim.keymap.set('n', 'gr', telescope.lsp_references, { desc = 'goto references' })
 				vim.keymap.set('n', 'gd', telescope.lsp_definitions, { desc = 'goto definition' })
 				vim.keymap.set('n', 'gi', telescope.lsp_implementations, { desc = 'goto implementation' })
+				vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = 'goto type definition' })
+				vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, { desc = 'display signature' })
 				vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { desc = 'rename' })
 				vim.keymap.set('n', '<leader>lwf', function()
 					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
@@ -163,8 +165,8 @@ return {
 				end, { desc = 'quickfix' })
 				-- <C-f> formats the current buffer
 				vim.keymap.set("n", "<C-f>", function()
-					vim.lsp.buf.format()
-				end, { desc = "Format" })
+					vim.lsp.buf.format({ async = true })
+				end, { desc = "Format async using LSP" })
 				local highlight_supported = client.supports_method('textDocument/documentHighlight')
 				vim.keymap.set('n', '<leader>hr', function()
 					if highlight_supported then
@@ -173,9 +175,6 @@ return {
 						print('Document Highlight not supported')
 					end
 				end, { desc = 'highlight references' })
-
-				-- call default_keymaps last to not overwrite anything above
-				lsp_zero.default_keymaps({ buffer = bufnr })
 			end)
 		end
 	},

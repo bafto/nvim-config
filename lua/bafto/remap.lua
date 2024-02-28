@@ -32,8 +32,8 @@ vim.keymap.set("v", "<leader>d", "\"_d", { desc = "Delete without replace" })
 vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Ex mode (Nop)" })
 
 -- control + s saves the current buffer (muscle memory)
-vim.keymap.set("n", "<C-s>", ":w<CR>", { desc = "Save" })
-vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a", { desc = "Save" })
+vim.keymap.set("n", "<C-s>", ":w<CR>", { desc = "Save file" })
+vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a", { desc = "Save file" })
 
 -- U for redo because <C-R> is already taken by harpoon
 vim.keymap.set("n", "U", "<C-R>", { desc = "Redo" })
