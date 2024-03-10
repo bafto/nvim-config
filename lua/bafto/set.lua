@@ -65,3 +65,7 @@ vim.diagnostic.update_in_insert = true
 
 -- no invisible end of line
 vim.cmd("set nofixendofline")
+
+if string.gmatch(vim.o.shell, ".*sh.exe") then
+	vim.o.shellcmdflag = "-c"
+end
