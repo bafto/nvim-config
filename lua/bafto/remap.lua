@@ -39,7 +39,10 @@ vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a", { desc = "Save file" })
 vim.keymap.set("n", "U", "<C-R>", { desc = "Redo" })
 
 -- <leader>ee for if err != nil in Go
-vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>jo<Esc>", { desc = "if err != nil" })
+vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>O", { desc = "if err != nil" })
+-- <leader>er for if err != nil and return in Go
+vim.keymap.set("n", "<leader>er", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>jo<Esc>",
+	{ desc = "if err != nil and return" })
 
 -- <ENTER> for newlines
 vim.keymap.set("n", "<ENTER>", "o<ESC>", { desc = "Newline" })

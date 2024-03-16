@@ -58,7 +58,8 @@ return {
 
 	-- LSP
 	{
-		'neovim/nvim-lspconfig',
+		'bafto/nvim-lspconfig',
+		branch = "gopls-env-fix",
 		dependencies = {
 			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason-lspconfig.nvim',
