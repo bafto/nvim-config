@@ -66,6 +66,8 @@ vim.diagnostic.update_in_insert = true
 -- no invisible end of line
 vim.cmd("set nofixendofline")
 
-if string.gmatch(vim.o.shell, ".*sh.exe") then
+-- git bash fix
+if string.gmatch(vim.o.shell, "bash.exe") then
 	vim.o.shellcmdflag = "-c"
+	vim.o.shellxquote = ""
 end
