@@ -18,6 +18,6 @@ return {
 			'nvim-treesitter/nvim-treesitter'
 		},
 	},
-
 	'ThePrimeagen/vim-be-good',
+	'tpope/vim-commentary',
 }
