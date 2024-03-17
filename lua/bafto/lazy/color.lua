@@ -3,6 +3,23 @@ return {
 
 	name = 'vscode',
 
+	dependencies = {
+		'ellisonleao/gruvbox.nvim',
+
+		name = 'gruvbox',
+
+		config = function()
+			require('gruvbox').setup {
+				italic = {
+					strings = false,
+					emphasis = false,
+					comments = false,
+					options = false,
+				}
+			}
+		end
+	},
+
 	config = function()
 		vim.cmd('colorscheme vscode');
 

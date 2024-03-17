@@ -63,6 +63,7 @@ return {
 		dependencies = {
 			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason-lspconfig.nvim',
+			'ray-x/lsp_signature.nvim'
 		},
 		event = { 'BufReadPre', 'BufNewFile' },
 		cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
@@ -145,6 +146,13 @@ return {
 					require('lsp-format').on_attach(client)
 				end
 
+				-- show signature help
+				require('lsp_signature').on_attach({
+					hint_prefix = "",
+					bind = true,
+					doc_lines = 0,
+				})
+
 				-- use telescope for some lsp stuff
 				local telescope = require('telescope.builtin')
 
@@ -154,20 +162,27 @@ return {
 				vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = 'goto type definition' })
 				vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, { desc = 'display signature' })
 				vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { desc = 'rename' })
+
+				-- list workspace folders
 				vim.keymap.set('n', '<leader>lwf', function()
 					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 				end, { desc = 'list workspace folders' })
 				vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'hover' })
+
+				-- quickfix
 				vim.keymap.set('n', '<leader>qf', function()
 					vim.lsp.buf.code_action({
 						filter = function(a) return a.isPreferred end,
 						apply = true,
 					})
 				end, { desc = 'quickfix' })
+
 				-- <C-f> formats the current buffer
 				vim.keymap.set("n", "<C-f>", function()
 					vim.lsp.buf.format({ async = true })
 				end, { desc = "Format async using LSP" })
+
+				-- <leader>hr highlights references
 				local highlight_supported = client.supports_method('textDocument/documentHighlight')
 				vim.keymap.set('n', '<leader>hr', function()
 					if highlight_supported then
