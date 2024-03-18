@@ -71,3 +71,6 @@ if string.gmatch(vim.o.shell, "bash.exe") then
 	vim.o.shellcmdflag = "-c"
 	vim.o.shellxquote = ""
 end
+
+-- no more swapfiles
+vim.opt.swapfile = false

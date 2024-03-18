@@ -1,6 +1,5 @@
 return {
 	'jiangmiao/auto-pairs',
-	'lukas-reineke/lsp-format.nvim',
 	{
 		'scalameta/nvim-metals',
 

@@ -63,7 +63,8 @@ return {
 		dependencies = {
 			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason-lspconfig.nvim',
-			'ray-x/lsp_signature.nvim'
+			'ray-x/lsp_signature.nvim',
+			'lukas-reineke/lsp-format.nvim',
 		},
 		event = { 'BufReadPre', 'BufNewFile' },
 		cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
@@ -141,8 +142,8 @@ return {
 
 			-- only call on_attach ones, as the last one will overwrite the previous ones
 			lsp_zero.on_attach(function(client, bufnr)
-				-- format using the language server
-				if client.supports_method('textDocument/formatting') then
+				-- format using the language server (exclude sqls because of bad formatting)
+				if client.supports_method('textDocument/formatting') and client.name ~= 'sqls' then
 					require('lsp-format').on_attach(client)
 				end
 
