@@ -63,6 +63,12 @@ vim.keymap.set("n", "<C-L>", "<C-W><C-L>", { desc = "Move window right" })
 -- split horizontally with just <C-W>k instead of K
 vim.keymap.set("n", "<C-W>k", "<C-W>K", { desc = "Split horizontally" })
 
+-- resize window with <C-A-Up/Down/Left/Right>
+vim.keymap.set("n", "<C-A-Up>", "<cmd>horizontal  resize +5<cr>", { desc = "Increase horizontal window size" })
+vim.keymap.set("n", "<C-A-Down>", "<cmd>horizontal  resize -5<cr>", { desc = "Decrease horizontal window size" })
+vim.keymap.set("n", "<C-A-Right>", "<cmd>vertical  resize +5<cr>", { desc = "Increase vertical window size" })
+vim.keymap.set("n", "<C-A-Left>", "<cmd>vertical  resize -5<cr>", { desc = "Decrease vertical window size" })
+
 -- replace the default <C-L> with <C-C> to clear search highlights
 vim.keymap.set("n", "<C-C>", function()
 	vim.lsp.buf.clear_references()
