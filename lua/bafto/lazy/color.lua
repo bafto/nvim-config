@@ -21,8 +21,6 @@ return {
 	},
 
 	config = function()
-		vim.cmd('colorscheme vscode');
-
 		function ApplyColor(color)
 			color = color or "vscode"
 			vim.cmd.colorscheme(color)
@@ -34,7 +32,8 @@ return {
 			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 		end
 
-		ApplyColor()
+		-- ApplyColor()
+		ApplyColor('gruvbox')
 		-- SetBackgroundTransparent()
 	end,
 };

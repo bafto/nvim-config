@@ -4,11 +4,11 @@ return {
 	lazy = true,
 	keys = {
 		-- keymaps
-		{ '<C-Left>',  function() require('dap').continue() end,          { desc = 'debug launch/continue' } },
-		{ '<C-Right>', function() require('dap').step_over() end,         { desc = 'debug step over' } },
-		{ '<C-Down>', function() require('dap').step_into() end,         { desc = 'debug step into' } },
-		{ '<C-Up>', function() require('dap').step_out() end, { desc = 'debug step out' } },
-		{ '<leader>db',  function() require('dap').toggle_breakpoint() end, { desc = 'debug toggle breakpoint' } },
+		{ '<C-Left>',   function() require('dap').continue() end,          { desc = 'debug launch/continue' } },
+		{ '<C-Right>',  function() require('dap').step_over() end,         { desc = 'debug step over' } },
+		{ '<C-Down>',   function() require('dap').step_into() end,         { desc = 'debug step into' } },
+		{ '<C-Up>',     function() require('dap').step_out() end,          { desc = 'debug step out' } },
+		{ '<leader>db', function() require('dap').toggle_breakpoint() end, { desc = 'debug toggle breakpoint' } },
 		{ '<leader>dB', function()
 			require('dap').toggle_breakpoint(vim.fn.input('Condition: '))
 		end, { desc = 'debug set breakpoint' } },
