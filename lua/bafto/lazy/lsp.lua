@@ -65,6 +65,7 @@ return {
 			'williamboman/mason-lspconfig.nvim',
 			'ray-x/lsp_signature.nvim',
 			'lukas-reineke/lsp-format.nvim',
+			'stevearc/conform.nvim',
 		},
 		event = { 'BufReadPre', 'BufNewFile' },
 		cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
@@ -140,11 +141,33 @@ return {
 				}
 			)
 
+			local lsp_format = require('lsp-format')
+			local format_options = {
+				java = {
+					exclude = { 'jdtls' },
+					tab_width = 2,
+				},
+				sql = {
+					exclude = { 'sqls' },
+				}
+			}
+			lsp_format.setup(format_options)
+
+			local conform = require('conform')
+			conform.setup {
+				formatters_by_ft = {
+					java = { 'google-java-format' },
+				},
+				format_after_save = {
+					lsp_fallback = false,
+				},
+			}
+
 			-- only call on_attach ones, as the last one will overwrite the previous ones
 			lsp_zero.on_attach(function(client, bufnr)
-				-- format using the language server (exclude sqls because of bad formatting)
-				if client.supports_method('textDocument/formatting') and client.name ~= 'sqls' then
-					require('lsp-format').on_attach(client)
+				-- format using the language server
+				if client.supports_method('textDocument/formatting') then
+					lsp_format.on_attach(client)
 				end
 
 				-- show signature help
@@ -180,7 +203,10 @@ return {
 
 				-- <C-f> formats the current buffer
 				vim.keymap.set("n", "<C-f>", function()
-					vim.lsp.buf.format({ async = true })
+					lsp_format.format({ buf = bufnr })
+					if client.name == 'jdtls' then
+						conform.format({ async = true, bufnr = bufnr })
+					end
 				end, { desc = "Format async using LSP" })
 
 				-- <leader>hr highlights references
