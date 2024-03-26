@@ -74,7 +74,7 @@ return {
 
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
-				ensure_installed = { 'tsserver', 'eslint', 'gopls', 'clangd', 'cmake', 'dockerls', 'html', 'jdtls', 'pyright', 'sqls', 'lua_ls' },
+				ensure_installed = { 'tsserver', 'eslint', 'gopls', 'clangd', 'cmake', 'dockerls', 'html', 'jdtls', 'pyright', 'sqls', 'lua_ls', 'lemminx' },
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
@@ -117,6 +117,10 @@ return {
 			lspconfig.html.setup {}
 			lspconfig.tsserver.setup {}
 			lspconfig.eslint.setup {}
+			lspconfig.cmake.setup {}
+			lspconfig.dockerls.setup {}
+			lspconfig.pyright.setup {}
+			lspconfig.lemminx.setup {}
 
 			vim.api.nvim_create_augroup("AutoImports", {})
 
