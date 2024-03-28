@@ -74,7 +74,7 @@ return {
 
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
-				ensure_installed = { 'tsserver', 'eslint', 'gopls', 'clangd', 'cmake', 'dockerls', 'html', 'jdtls', 'pyright', 'sqls', 'lua_ls', 'lemminx' },
+				ensure_installed = { 'tsserver', 'eslint', 'gopls', 'clangd', 'cmake', 'dockerls', 'html', 'jdtls', 'jedi_language_server', 'sqls', 'lua_ls', 'lemminx' },
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
@@ -119,8 +119,17 @@ return {
 			lspconfig.eslint.setup {}
 			lspconfig.cmake.setup {}
 			lspconfig.dockerls.setup {}
-			lspconfig.pyright.setup {}
-			lspconfig.lemminx.setup {}
+			lspconfig.jedi_language_server.setup {}
+
+			lspconfig.lemminx.setup {
+				settings = {
+					xml = {
+						format = {
+							enabled = false,
+						}
+					}
+				}
+			}
 
 			vim.api.nvim_create_augroup("AutoImports", {})
 
@@ -153,6 +162,9 @@ return {
 				},
 				sql = {
 					exclude = { 'sqls' },
+				},
+				xml = {
+					exclude = { 'lemminx' }
 				}
 			}
 			lsp_format.setup(format_options)
