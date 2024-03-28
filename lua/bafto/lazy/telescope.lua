@@ -17,7 +17,15 @@ return {
 						'node_modules/*',
 						-- DDP-Projekt specific
 						'llvm%-project/*'
-					}
+					},
+					path_display = {
+						shorten = {
+							len = 3,
+							exclude = { 1, -1 },
+						},
+						truncate = true,
+					},
+					dynamic_preview_title = true,
 				},
 				extensions = {
 					fzf = {

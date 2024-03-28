@@ -48,6 +48,7 @@ vim.opt.updatetime = 50
 -- if you want to enforce the max 80 characters rule
 -- vim.opt.colorcolumn = "80"
 
+-- " " = "<leader>"
 vim.g.mapleader = " "
 
 -- persistent undo

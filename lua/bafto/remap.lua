@@ -1,3 +1,5 @@
+vim.keymap.set({ "n", "i", "v" }, "ö", "<Esc>", { desc = "Easy Escape" })
+
 vim.keymap.set("n", "<leader>pv", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
 
 -- enables moving of highlighted sections with J and K (awesome)
