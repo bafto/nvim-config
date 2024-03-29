@@ -1,4 +1,5 @@
 vim.keymap.set({ "n", "i", "v" }, "ö", "<Esc>", { desc = "Easy Escape" })
+vim.keymap.set("i", "<C-o>", "ö", { desc = "ö" })
 
 vim.keymap.set("n", "<leader>pv", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
 
