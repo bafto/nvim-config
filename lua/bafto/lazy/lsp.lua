@@ -100,7 +100,10 @@ return {
 				},
 			}
 
+			local clangd_capabilities = vim.lsp.protocol.make_client_capabilities()
+			clangd_capabilities.offsetEncoding = 'utf-8'
 			lspconfig.clangd.setup {
+				capabilities = clangd_capabilities,
 				cmd = {
 					'clangd',
 					'--background-index',
