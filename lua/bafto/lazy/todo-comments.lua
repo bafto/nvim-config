@@ -5,9 +5,16 @@ return {
 		'nvim-lua/plenary.nvim',
 	},
 
+	cmd = {
+		'TodoTelescope',
+		'Todo',
+	},
+
 	config = function()
 		require('todo-comments').setup {}
 
-		vim.keymap.set('n', '<leader>todo', ':TodoTelescope<CR>', { desc = 'Open todo' });
+		vim.api.nvim_create_user_command('Todo', function()
+			vim.cmd('TodoTelescope')
+		end, { desc = 'Open todo' })
 	end,
 }
