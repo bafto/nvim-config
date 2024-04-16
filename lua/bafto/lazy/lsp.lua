@@ -205,6 +205,7 @@ return {
 				vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = 'goto type definition' })
 				vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, { desc = 'display signature' })
 				vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { desc = 'rename' })
+				vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = 'get diagnostics' })
 
 				-- list workspace folders
 				vim.keymap.set('n', '<leader>lwf', function()
