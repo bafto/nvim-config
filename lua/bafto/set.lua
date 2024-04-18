@@ -44,6 +44,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 250
+vim.opt.timeoutlen = 500
 
 -- if you want to enforce the max 80 characters rule
 -- vim.opt.colorcolumn = "80"
