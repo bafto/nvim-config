@@ -239,6 +239,12 @@ return {
 					end
 				end, { desc = 'highlight references' })
 			end)
+
+			vim.api.nvim_create_user_command('StopLsp', function()
+				for i, server in ipairs(vim.lsp.buf_get_clients()) do
+					vim.lsp.get_client_by_id(server.id).stop()
+				end
+			end, { desc = 'stops all language servers' })
 		end
 	},
 }
