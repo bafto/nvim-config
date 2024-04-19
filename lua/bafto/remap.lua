@@ -55,9 +55,6 @@ vim.keymap.set("n", "<ENTER>", "o<ESC>", { desc = "Newline" })
 -- <ENTER> to replace with newline in visual mode
 vim.keymap.set("v", "<ENTER>", "c<ENTER><ESC>kA", { desc = "Replace with newline" })
 
--- open lazy
-vim.keymap.set("n", "<leader>lazy", ":Lazy<CR>", { desc = "Open lazy" })
-
 -- move window with <C-HJKL>
 vim.keymap.set("n", "<C-H>", "<C-W><C-H>", { desc = "Move window left" })
 vim.keymap.set("n", "<C-J>", "<C-W><C-J>", { desc = "Move window down" })
