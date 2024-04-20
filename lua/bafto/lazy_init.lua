@@ -13,4 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup {
 	spec = "bafto.lazy",
+	change_detection = {
+		enable = true,
+		notify = false,
+	}
 };
