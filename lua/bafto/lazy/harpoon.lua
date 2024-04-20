@@ -142,7 +142,7 @@ return {
 		{ '<C-B>', function() require('harpoon'):list():prev() end,            { desc = 'Harpoon previous' } },
 		{ '<C-N>', function() require('harpoon'):list():next() end,            { desc = 'Harpoon next' } },
 		-- use telescope as UI
-		{ "<C-Q>", function() toggle_telescope(require('harpoon'):list()) end, { desc = "Open harpoon window" } },
+		{ "<C-P>", function() toggle_telescope(require('harpoon'):list()) end, { desc = "Open harpoon window" } },
 		-- use harpoon as UI
 		--{ "<C-Q>", function() require('harpoon').ui:toggle_quick_menu(require('harpoon'):list()) end },
 	},

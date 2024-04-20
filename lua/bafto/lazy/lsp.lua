@@ -58,8 +58,7 @@ return {
 
 	-- LSP
 	{
-		'bafto/nvim-lspconfig',
-		branch = "gopls-env-fix",
+		'neovim/nvim-lspconfig',
 		dependencies = {
 			'hrsh7th/cmp-nvim-lsp',
 			'williamboman/mason-lspconfig.nvim',
@@ -133,6 +132,27 @@ return {
 					}
 				}
 			}
+
+			-- DDP setup
+			vim.filetype.add({
+				extension = {
+					ddp = 'ddp',
+				},
+			})
+
+			local lspconfig_configs = require('lspconfig.configs')
+			if not lspconfig_configs.ddpls then
+				lspconfig_configs.ddpls = {
+					default_config = {
+						name = 'DDPLS',
+						cmd = { 'DDPLS' },
+						filetypes = { 'ddp' },
+						root_dir = lspconfig.util.root_pattern('.git') or vim.fn.getcwd(),
+					},
+				}
+			end
+
+			lspconfig.ddpls.setup {}
 
 			vim.api.nvim_create_augroup("AutoImports", {})
 
@@ -241,7 +261,7 @@ return {
 			end)
 
 			vim.api.nvim_create_user_command('StopLsp', function()
-				for i, server in ipairs(vim.lsp.buf_get_clients()) do
+				for i, server in ipairs(vim.lsp.get_clients()) do
 					vim.lsp.get_client_by_id(server.id).stop()
 				end
 			end, { desc = 'stops all language servers' })

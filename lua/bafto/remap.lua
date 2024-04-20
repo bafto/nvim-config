@@ -1,5 +1,5 @@
-vim.keymap.set({ "n", "i", "v" }, "ö", "<Esc>", { desc = "Easy Escape" })
-vim.keymap.set("i", "<C-o>", "ö", { desc = "ö" })
+vim.keymap.set({ "n", "i", "v", "t" }, "ö", "<Esc>", { desc = "Easy Escape" })
+vim.keymap.set({ "i", "t" }, "<C-o>", "ö", { desc = "ö" })
 
 vim.keymap.set("n", "<leader>pv", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
 
@@ -64,10 +64,10 @@ vim.keymap.set("n", "<C-L>", "<C-W><C-L>", { desc = "Move window right" })
 vim.keymap.set("n", "<C-W>k", "<C-W>K", { desc = "Split horizontally" })
 
 -- resize window with <C-A-Up/Down/Left/Right>
-vim.keymap.set("n", "<C-A-Up>", "<cmd>horizontal  resize +5<cr>", { desc = "Increase horizontal window size" })
-vim.keymap.set("n", "<C-A-Down>", "<cmd>horizontal  resize -5<cr>", { desc = "Decrease horizontal window size" })
-vim.keymap.set("n", "<C-A-Right>", "<cmd>vertical  resize +5<cr>", { desc = "Increase vertical window size" })
-vim.keymap.set("n", "<C-A-Left>", "<cmd>vertical  resize -5<cr>", { desc = "Decrease vertical window size" })
+vim.keymap.set({ "n", "t" }, "<C-A-Up>", "<cmd>horizontal  resize +5<cr>", { desc = "Increase horizontal window size" })
+vim.keymap.set({ "n", "t" }, "<C-A-Down>", "<cmd>horizontal  resize -5<cr>", { desc = "Decrease horizontal window size" })
+vim.keymap.set({ "n", "t" }, "<C-A-Right>", "<cmd>vertical  resize +5<cr>", { desc = "Increase vertical window size" })
+vim.keymap.set({ "n", "t" }, "<C-A-Left>", "<cmd>vertical  resize -5<cr>", { desc = "Decrease vertical window size" })
 
 -- replace the default <C-L> with <C-C> to clear search highlights
 vim.keymap.set("n", "<C-C>", function()
