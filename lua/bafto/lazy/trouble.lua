@@ -1,8 +1,8 @@
 return {
 	'folke/trouble.nvim',
 
-	depedencies = {
-		'kyazdani42/nvim-web-devicons',
+	dependencies = {
+		'nvim-tree/nvim-web-devicons',
 	},
 
 	keys = {

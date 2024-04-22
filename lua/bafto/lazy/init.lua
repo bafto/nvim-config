@@ -13,7 +13,7 @@ return {
 
 		'windwp/nvim-ts-autotag',
 
-		depedencies = {
+		dependencies = {
 			'nvim-treesitter/nvim-treesitter'
 		},
 	},
