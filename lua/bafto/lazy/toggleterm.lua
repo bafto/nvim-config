@@ -3,7 +3,9 @@ return {
 	version = '*',
 
 	config = function()
-		require('toggleterm').setup {}
+		require('toggleterm').setup {
+			shell = "bash.exe",
+		}
 
 		vim.keymap.set({ 'n', 'i', 't' }, '<C-q>', '<Cmd>ToggleTerm<CR>', { desc = 'toggle terminal' })
 		vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'enter normal mode' })

@@ -42,7 +42,11 @@ return {
 
 			vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Find files' })
 			vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Live grep' })
-			vim.keymap.set('n', '<leader>gr', builtin.grep_string, { desc = 'Grep word under cursor' })
+			vim.keymap.set('n', '<leader>gr', function()
+				vim.ui.input({ prompt = 'Grep > ' }, function(value)
+					builtin.grep_string({ search = value })
+				end)
+			end, { desc = 'Grep from prompt' })
 			vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Find buffers' })
 		end
 	},
