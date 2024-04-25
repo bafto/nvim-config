@@ -12,6 +12,7 @@ return {
 		config = function()
 			require('telescope').setup {
 				defaults = {
+					layout_strategy = 'vertical',
 					file_ignore_patterns = {
 						'target/*',
 						'node_modules/*',
