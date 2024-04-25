@@ -3,8 +3,13 @@ return {
 	version = '*',
 
 	config = function()
+		local bash_executable = "/usr/bin/bash"
+		if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+			bash_executable = "bash.exe"
+		end
+
 		require('toggleterm').setup {
-			shell = "bash.exe",
+			shell = bash_executable,
 		}
 
 		vim.keymap.set({ 'n', 'i', 't' }, '<C-q>', '<Cmd>ToggleTerm<CR>', { desc = 'toggle terminal' })
