@@ -9,8 +9,4 @@ return {
 		"MarkdownPreview",
 		"MarkdownPreviewStop",
 	},
-
-	keys = {
-		{ '<leader>preview', ':MarkdownPreviewToggle<CR>', { desc = 'Toggle Markdown Preview' } }
-	}
 }
