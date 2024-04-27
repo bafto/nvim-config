@@ -3,13 +3,6 @@ return {
 
 	dependencies = {
 		'nvim-tree/nvim-web-devicons',
-		{
-			'letieu/harpoon-lualine',
-			dependencies = {
-				'ThePrimeagen/harpoon',
-				branch = "harpoon2",
-			}
-		}
 	},
 
 	config = function()
@@ -17,13 +10,6 @@ return {
 			options = {
 				component_separators = '',
 			},
-			sections = {
-				lualine_c = {
-					'%=',
-					'filename',
-					'harpoon2',
-				}
-			}
 		}
 	end
 }

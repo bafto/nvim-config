@@ -38,7 +38,7 @@ vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Ex mode (Nop)" })
 vim.keymap.set("n", "<C-s>", ":w<CR>", { desc = "Save file" })
 vim.keymap.set("i", "<C-s>", "<Esc>:w<CR>a", { desc = "Save file" })
 
--- U for redo because <C-R> is already taken by harpoon
+-- U for redo
 vim.keymap.set("n", "U", "<C-R>", { desc = "Redo" })
 
 -- <leader>ee for if err != nil in Go
