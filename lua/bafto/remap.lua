@@ -19,8 +19,8 @@ vim.keymap.set("n", "N", "Nzzzv", { desc = "Find previous" })
 -- <leader>p is now like p but the previous register is saved
 vim.keymap.set("x", "<leader>p", "\"_dP", { desc = "Paste without replace" })
 -- <leader>ps now pastes from system clipboard
--- vim.keymap.set("n", "<leader>ps", "\"+p", { desc = "Paste from system clipboard" })
--- vim.keymap.set("v", "<leader>ps", "\"+p", { desc = "Paste from system clipboard" })
+vim.keymap.set("n", "<leader>ps", "\"+p", { desc = "Paste from system clipboard" })
+vim.keymap.set("v", "<leader>ps", "\"+p", { desc = "Paste from system clipboard" })
 
 -- <leader>y yanks to system clipboard
 vim.keymap.set("n", "<leader>y", "\"+y", { desc = "Yank to system clipboard" })
