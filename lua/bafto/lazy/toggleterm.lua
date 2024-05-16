@@ -10,6 +10,7 @@ return {
 
 		require('toggleterm').setup {
 			shell = bash_executable,
+			size = 20,
 		}
 
 		vim.keymap.set({ 'n', 'i', 't' }, '<C-q>', '<Cmd>ToggleTerm<CR>', { desc = 'toggle terminal' })
