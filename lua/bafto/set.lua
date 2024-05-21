@@ -32,6 +32,8 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
+vim.opt.cursorline = true
+
 -- incremental search
 -- vim.opt.hlsearch = false -- if set to true, it highlights all matches, not just the current one
 vim.opt.incsearch = true
