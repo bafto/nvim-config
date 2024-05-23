@@ -32,6 +32,7 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
+-- highlight current line
 vim.opt.cursorline = true
 
 -- incremental search
@@ -99,6 +100,7 @@ end
 -- no more swapfiles
 vim.opt.swapfile = false
 
+-- highlight yanked text
 vim.api.nvim_create_autocmd('TextYankPost', {
 	pattern = '*',
 	callback = function()
@@ -108,3 +110,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 		})
 	end,
 })
+
+vim.opt.diffopt = "internal,filler,closeoff,vertical"
