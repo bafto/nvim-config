@@ -11,9 +11,15 @@ return {
 
 		config = function()
 			require('telescope').setup {
+				pickers = {
+					find_files = {
+						hidden = true,
+					},
+				},
 				defaults = {
 					layout_strategy = 'vertical',
 					file_ignore_patterns = {
+						'.git/*',
 						'target/*',
 						'node_modules/*',
 						-- DDP-Projekt specific
@@ -27,6 +33,16 @@ return {
 						truncate = true,
 					},
 					dynamic_preview_title = true,
+					vimgrep_arguments = {
+						"rg",
+						"--color=never",
+						"--no-heading",
+						"--with-filename",
+						"--line-number",
+						"--column",
+						"--smart-case",
+						"--hidden",
+					},
 				},
 				extensions = {
 					fzf = {
