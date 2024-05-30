@@ -1,7 +1,7 @@
 return {
 	'kylechui/nvim-surround',
 
-	tag = "v2.1.4",
+	tag = "v2.1.9",
 
 	config = function()
 		require("nvim-surround").setup {
