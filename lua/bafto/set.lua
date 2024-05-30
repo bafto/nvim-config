@@ -92,6 +92,11 @@ vim.diagnostic.update_in_insert = true
 vim.cmd("set nofixendofline")
 
 -- git bash fix
+if vim.fn.executable("bash") then
+	vim.o.shell = "bash"
+end
+
+-- git bash fix 2
 if string.gmatch(vim.o.shell, "bash.exe") then
 	vim.o.shellcmdflag = "-c"
 	vim.o.shellxquote = ""
