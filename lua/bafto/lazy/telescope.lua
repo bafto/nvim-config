@@ -65,6 +65,7 @@ return {
 				end)
 			end, { desc = 'Grep from prompt' })
 			vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Find buffers' })
+			vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Find git files' })
 		end
 	},
 	{
