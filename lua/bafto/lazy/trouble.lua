@@ -5,14 +5,14 @@ return {
 		'nvim-tree/nvim-web-devicons',
 	},
 
-	keys = {
-		{ '<leader>t', ':TroubleToggle<CR>', { desc = 'toggle trouble' } },
+	opts = {
+		focus = true,
 	},
 
-	cmd = {
-		'TroubleToggle',
-		'Trouble',
-		'TroubleClose',
-		'TroubleRefresh',
+	cmd = 'Trouble',
+
+	keys = {
+		{ '<leader>t',  '<cmd>Trouble diagnostics toggle<CR>',              { desc = 'Toggle Trouble all diagnostics' } },
+		{ '<leader>bt', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', { desc = 'Toggle Trouble buffer diagnostics' } },
 	},
 }
