@@ -16,8 +16,8 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Find next" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Find previous" })
 
--- <leader>p is now like p but the previous register is saved
-vim.keymap.set("x", "<leader>p", "\"_dP", { desc = "Paste without replace" })
+-- p now keeps the register unchanged
+vim.keymap.set("x", "p", "\"_dP", { desc = "Paste without replace" })
 -- <leader>ps now pastes from system clipboard
 vim.keymap.set("n", "<leader>ps", "\"+p", { desc = "Paste from system clipboard" })
 vim.keymap.set("v", "<leader>ps", "\"+p", { desc = "Paste from system clipboard" })
