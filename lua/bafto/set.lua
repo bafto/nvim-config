@@ -104,6 +104,8 @@ end
 
 -- no more swapfiles
 vim.opt.swapfile = false
+-- no shada files
+vim.opt.shadafile = "NONE"
 
 -- highlight yanked text
 vim.api.nvim_create_autocmd('TextYankPost', {
