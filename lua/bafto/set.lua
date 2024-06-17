@@ -92,8 +92,8 @@ vim.diagnostic.update_in_insert = true
 vim.cmd("set nofixendofline")
 
 -- git bash fix
-if vim.fn.executable("bash") then
-	vim.o.shell = "bash"
+if (vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1) and vim.fn.executable("bash.exe") then
+	vim.o.shell = vim.fn.exepath("bash.exe")
 end
 
 -- git bash fix 2
