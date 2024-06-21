@@ -10,6 +10,16 @@ return {
 		},
 
 		config = function()
+			local tConfig = require('telescope.config')
+
+			local vimgrep_arguments = { unpack(tConfig.values.vimgrep_arguments) }
+
+			-- show hidden files
+			table.insert(vimgrep_arguments, '--hidden')
+			-- ignore certain directories
+			table.insert(vimgrep_arguments, '--glob')
+			table.insert(vimgrep_arguments, '!{.git/,node_modules/,llvm-project/,llvm_build/}')
+
 			require('telescope').setup {
 				pickers = {
 					find_files = {
@@ -18,13 +28,6 @@ return {
 				},
 				defaults = {
 					layout_strategy = 'vertical',
-					file_ignore_patterns = {
-						'.git/*',
-						'target/*',
-						'node_modules/*',
-						-- DDP-Projekt specific
-						'llvm%-project/*'
-					},
 					path_display = {
 						shorten = {
 							len = 3,
@@ -33,16 +36,7 @@ return {
 						truncate = true,
 					},
 					dynamic_preview_title = true,
-					vimgrep_arguments = {
-						"rg",
-						"--color=never",
-						"--no-heading",
-						"--with-filename",
-						"--line-number",
-						"--column",
-						"--smart-case",
-						"--hidden",
-					},
+					vimgrep_arguments = vimgrep_arguments,
 				},
 				extensions = {
 					fzf = {

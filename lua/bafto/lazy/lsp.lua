@@ -73,7 +73,7 @@ return {
 
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
-				ensure_installed = { 'tsserver', 'eslint', 'gopls', 'clangd', 'cmake', 'dockerls', 'html', 'jdtls', 'jedi_language_server', 'sqls', 'lua_ls', 'lemminx' },
+				ensure_installed = { 'tsserver', 'eslint', 'gopls', 'clangd', 'cmake', 'dockerls', 'html', 'jdtls', 'jedi_language_server', 'sqls', 'lua_ls', 'lemminx', 'terraformls' },
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
@@ -122,6 +122,7 @@ return {
 			lspconfig.cmake.setup {}
 			lspconfig.dockerls.setup {}
 			lspconfig.jedi_language_server.setup {}
+			lspconfig.terraformls.setup {}
 
 			lspconfig.lemminx.setup {
 				settings = {
