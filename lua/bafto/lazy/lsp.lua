@@ -45,7 +45,7 @@ return {
 					{ name = 'luasnip', keyword_length = 2 },
 					{ name = 'buffer',  keyword_length = 3 },
 				},
-				formatting = lsp_zero.cmp_format(),
+				formatting = lsp_zero.cmp_format({}),
 				mapping = cmp.mapping.preset.insert({
 					['<C-K>'] = cmp.mapping.select_prev_item(cmp_select),
 					['<C-J>'] = cmp.mapping.select_next_item(cmp_select),
