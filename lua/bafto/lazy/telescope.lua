@@ -18,7 +18,7 @@ return {
 			table.insert(vimgrep_arguments, '--hidden')
 			-- ignore certain directories
 			table.insert(vimgrep_arguments, '--glob')
-			table.insert(vimgrep_arguments, '!{.git/,node_modules/,llvm-project/,llvm_build/}')
+			table.insert(vimgrep_arguments, '!{**/.git/*,**/node_modules/*,**/llvm-project/*,**/llvm_build/*,**/pcre2/*}')
 
 			require('telescope').setup {
 				pickers = {
