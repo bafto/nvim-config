@@ -116,6 +116,20 @@ return {
 				root_dir = lspconfig.util.root_pattern('compile_commands.json', '.git', '.clangd', '.clang-format')
 			}
 
+			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+			local root_dir = lspconfig.util.root_pattern('.git', 'pom.xml')()
+			lspconfig.jdtls.setup {
+				cmd = {
+					"jdtls",
+					"-configuration", "/home/user/.cache/jdtls/config",
+					"-data", "/home/user/.cache/jdtls/workspace/" .. project_name,
+					"--add-modules=ALL-SYSTEM",
+					"--add-opens java.base/java.util=ALL-UNNAMED",
+					"--add-opens java.base/java.lang=ALL-UNNAMED",
+				},
+				root_dir = lspconfig.util.root_pattern('.git', 'pom.xml') or vim.fn.getcwd()
+			}
+
 			lspconfig.html.setup {}
 			lspconfig.tsserver.setup {}
 			lspconfig.eslint.setup {}
