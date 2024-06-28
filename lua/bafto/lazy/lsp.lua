@@ -118,7 +118,6 @@ return {
 
 			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 			local root_dir = lspconfig.util.root_pattern('.git', 'pom.xml')()
-			print(root_dir);
 			lspconfig.jdtls.setup {
 				cmd = {
 					"jdtls",
