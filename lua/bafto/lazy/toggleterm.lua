@@ -8,7 +8,9 @@ return {
 			bash_executable = "bash.exe"
 		end
 
-		require('toggleterm').setup {
+		local toggleterm = require('toggleterm')
+
+		toggleterm.setup {
 			shell = bash_executable,
 			size = 20,
 		}
@@ -26,5 +28,11 @@ return {
 			{ desc = 'execute selection in terminal and enter insert mode' })
 		vim.keymap.set('v', '<leader>E', '<Cmd>ToggleTermSendVisualSelection<CR>',
 			{ desc = 'execute selection in terminal without selecting terminal' })
+
+
+		vim.api.nvim_create_user_command('GoTest', function()
+			local test_name = vim.fn.expand('<cword>')
+			toggleterm.exec('go test -run="' .. test_name .. '" -v "./' .. vim.fn.expand('%:.:h') .. '"')
+		end, { desc = 'Runs the go command under the cursor' })
 	end,
 }
