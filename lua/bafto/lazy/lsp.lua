@@ -275,8 +275,8 @@ return {
 					require('jdtls').start_or_attach({
 						cmd = {
 							util.is_windows() and "jdtls.cmd" or "jdtls",
-							"-configuration", "~/.cache/jdtls/config",
-							"-data", "~/.cache/jdtls/workspace/" .. project_name,
+							"-configuration", vim.env.HOME .. "/.cache/jdtls/config",
+							"-data", vim.env.HOME .. "/.cache/jdtls/workspace/" .. project_name,
 							"--add-modules=ALL-SYSTEM",
 							"--add-opens java.base/java.util=ALL-UNNAMED",
 							"--add-opens java.base/java.lang=ALL-UNNAMED",
