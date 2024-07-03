@@ -259,7 +259,7 @@ return {
 
 				-- <leader>hr highlights references
 				local highlight_supported = client.supports_method('textDocument/documentHighlight')
-				vim.keymap.set('n', '<leader>hr', function()
+				vim.keymap.set('n', '<leader>dh', function()
 					if highlight_supported then
 						vim.lsp.buf.document_highlight()
 					else
