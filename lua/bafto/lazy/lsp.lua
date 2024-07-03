@@ -65,22 +65,27 @@ return {
 			'ray-x/lsp_signature.nvim',
 			'lukas-reineke/lsp-format.nvim',
 			'stevearc/conform.nvim',
+			'mfussenegger/nvim-jdtls',
 		},
 		event = { 'BufReadPre', 'BufNewFile' },
 		cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
 		config = function()
+			local util = require('bafto.util')
 			local lsp_zero = require('lsp-zero')
 
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
 				ensure_installed = { 'tsserver', 'eslint', 'gopls', 'clangd', 'cmake', 'dockerls', 'html', 'jdtls', 'jedi_language_server', 'sqls', 'lua_ls', 'lemminx', 'terraformls' },
 				handlers = {
-					lsp_zero.default_setup,
+					-- lsp_zero.default_setup,
 					lua_ls = function()
 						local lua_opts = lsp_zero.nvim_lua_ls()
 						require('lspconfig').lua_ls.setup(lua_opts)
 					end,
 				}
+			})
+			require('mason-lspconfig').setup_handlers({
+				['jdtls'] = function() end
 			})
 
 			local lspconfig = require('lspconfig')
@@ -116,19 +121,6 @@ return {
 				root_dir = lspconfig.util.root_pattern('compile_commands.json', '.git', '.clangd', '.clang-format')
 			}
 
-			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-			local root_dir = lspconfig.util.root_pattern('.git', 'pom.xml')()
-			lspconfig.jdtls.setup {
-				cmd = {
-					"jdtls",
-					"-configuration", "/home/user/.cache/jdtls/config",
-					"-data", "/home/user/.cache/jdtls/workspace/" .. project_name,
-					"--add-modules=ALL-SYSTEM",
-					"--add-opens java.base/java.util=ALL-UNNAMED",
-					"--add-opens java.base/java.lang=ALL-UNNAMED",
-				},
-				root_dir = lspconfig.util.root_pattern('.git', 'pom.xml') or vim.fn.getcwd()
-			}
 
 			lspconfig.html.setup {}
 			lspconfig.tsserver.setup {}
@@ -217,8 +209,7 @@ return {
 				},
 			}
 
-			-- only call on_attach ones, as the last one will overwrite the previous ones
-			lsp_zero.on_attach(function(client, bufnr)
+			local function on_attach(client, bufnr)
 				-- format using the language server
 				if client.supports_method('textDocument/formatting') then
 					lsp_format.on_attach(client)
@@ -275,7 +266,36 @@ return {
 						print('Document Highlight not supported')
 					end
 				end, { desc = 'highlight references' })
-			end)
+			end
+
+			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "java" },
+				callback = function()
+					require('jdtls').start_or_attach({
+						cmd = {
+							util.is_windows() and "jdtls.cmd" or "jdtls",
+							"-configuration", "~/.cache/jdtls/config",
+							"-data", "~/.cache/jdtls/workspace/" .. project_name,
+							"--add-modules=ALL-SYSTEM",
+							"--add-opens java.base/java.util=ALL-UNNAMED",
+							"--add-opens java.base/java.lang=ALL-UNNAMED",
+							"-Xmx2g",
+						},
+						settings = {
+							java = {
+								signatureHelp = { enabled = true },
+								contentProvider = { preferred = "fernflower" },
+								foramt = { enabled = false },
+							},
+						},
+						root_dir = vim.fs.root(0, { '.git', 'mvnw', 'gradlew' }),
+					})
+				end
+			})
+
+			-- only call on_attach ones, as the last one will overwrite the previous ones
+			lsp_zero.on_attach(on_attach)
 
 			vim.api.nvim_create_user_command('StopLsp', function()
 				for i, server in ipairs(vim.lsp.get_clients()) do

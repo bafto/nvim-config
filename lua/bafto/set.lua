@@ -1,3 +1,5 @@
+local util = require('bafto.util')
+
 -- relative line numbers
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -62,7 +64,7 @@ local function setup_undo_directory()
 	local home_directory
 
 	-- Check the operating system
-	if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+	if util.is_windows() then
 		-- Windows
 		home_directory = vim.fn.substitute(vim.fn.expand("$USERPROFILE"), "\\", "/", "g")
 	else
@@ -92,7 +94,7 @@ vim.diagnostic.update_in_insert = true
 vim.cmd("set nofixendofline")
 
 -- git bash fix
-if (vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1) and vim.fn.executable("bash.exe") then
+if (util.is_windows()) and vim.fn.executable("bash.exe") then
 	vim.o.shell = vim.fn.exepath("bash.exe")
 end
 

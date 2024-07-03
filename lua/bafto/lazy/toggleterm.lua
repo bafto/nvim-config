@@ -3,8 +3,10 @@ return {
 	version = '*',
 
 	config = function()
+		local util = require('bafto.util')
+
 		local bash_executable = "/usr/bin/bash"
-		if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+		if util.is_windows() then
 			bash_executable = "bash.exe"
 		end
 
