@@ -52,10 +52,14 @@ return {
 			-- require('telescope').load_extension('fzf');
 
 			local builtin = require('telescope.builtin')
+			local fd_cmd = 'fd';
+			if not vim.fn.executable(fd_cmd) then
+				fd_cmd = 'fdfind';
+			end
 
 			vim.keymap.set('n', '<leader>ff', function()
 				builtin.find_files {
-					find_command = { 'fdfind', '--type', 'f', '-H', '--exclude', ignore_patterns }
+					find_command = { fd_cmd, '--type', 'f', '-H', '--exclude', ignore_patterns }
 				}
 			end, { desc = 'Find files' })
 			vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Live grep' })
