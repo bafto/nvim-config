@@ -5,7 +5,10 @@ vim.keymap.set("n", "<leader>pv", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTr
 
 -- enables moving of highlighted sections with J and K (awesome)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
+vim.keymap.set("v", "K", ":m '<-2<CR>", { desc = "Move selected lines up" })
+vim.keymap.set("v", "L", "dp`[1v", { desc = "Move selection to the right" })
+vim.keymap.set("v", "H", "dhhp`[1v", { desc = "Move selection to the left" })
+
 
 -- cursor stays in place when appending next line to current line
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines" })
