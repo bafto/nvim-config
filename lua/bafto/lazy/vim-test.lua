@@ -11,7 +11,7 @@ return {
 
 		vim.g["test#custom_strategies"] = {
 			tterm = function(cmd)
-				toggleterm.exec(cmd)
+				toggleterm.exec(string.gsub(cmd, '\\', '/'))
 			end,
 
 			tterm_close = function(cmd)
