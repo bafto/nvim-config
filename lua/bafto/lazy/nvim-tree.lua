@@ -36,7 +36,35 @@ return {
 				enable = true,
 			},
 			sort = {
-				sorter = "extension",
+				-- sort by is_directory > extension > name
+				sorter = function(nodes)
+					table.sort(nodes, function(a, b)
+						-- sort directories to the top
+						if a.type ~= b.type then
+							return a.type < b.type
+						end
+
+						-- no nils
+						a.extension = a.extension or ""
+						b.extension = b.extension or ""
+
+						-- get extension
+						for str in string.gmatch(a.extension, '[^\\.]+') do
+							a.extension = str or a.extension
+						end
+						for str in string.gmatch(b.extension, '[^\\.]+') do
+							b.extension = str or b.extension
+						end
+
+						-- sort by extension
+						if a.extension ~= b.extension then
+							return a.extension < b.extension
+						end
+
+						-- sort by name
+						return a.name < b.name
+					end)
+				end,
 			},
 			diagnostics = {
 				enable = true,
