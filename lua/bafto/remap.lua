@@ -30,9 +30,9 @@ vim.keymap.set("n", "<leader>y", "\"+y", { desc = "Yank to system clipboard" })
 vim.keymap.set("v", "<leader>y", "\"+y", { desc = "Yank to system clipboard" })
 vim.keymap.set("v", "<leader>Y", "\"+Y", { desc = "Yank to system clipboard" })
 
--- <leader>d now deletes to void register (previous register is saved)
-vim.keymap.set("n", "<leader>d", "\"_d", { desc = "Delete without replace" })
-vim.keymap.set("v", "<leader>d", "\"_d", { desc = "Delete without replace" })
+-- <leader>d now deletes to system clipboard (previous register is saved)
+vim.keymap.set("n", "<leader>d", "\"+d", { desc = "Delete without replace" })
+vim.keymap.set("v", "<leader>d", "\"+d", { desc = "Delete without replace" })
 
 -- better safe than sorry
 vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Ex mode (Nop)" })
