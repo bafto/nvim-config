@@ -67,10 +67,38 @@ vim.keymap.set("n", "<C-L>", "<C-W><C-L>", { desc = "Move window right" })
 vim.keymap.set("n", "<C-W>k", "<C-W>K", { desc = "Split horizontally" })
 
 -- resize window with <C-A-Up/Down/Left/Right>
-vim.keymap.set({ "n", "t" }, "<C-A-Up>", "<cmd>horizontal  resize +5<cr>", { desc = "Increase horizontal window size" })
-vim.keymap.set({ "n", "t" }, "<C-A-Down>", "<cmd>horizontal  resize -5<cr>", { desc = "Decrease horizontal window size" })
-vim.keymap.set({ "n", "t" }, "<C-A-Right>", "<cmd>vertical  resize +5<cr>", { desc = "Increase vertical window size" })
-vim.keymap.set({ "n", "t" }, "<C-A-Left>", "<cmd>vertical  resize -5<cr>", { desc = "Decrease vertical window size" })
+
+-- resizes the window as expected depending on the side it is on
+local function resize_window(opts)
+	opts = opts or { amount = '5', vertical = true, increase = true }
+	return function()
+		local window_pos = vim.api.nvim_win_get_position(0);
+		local prefix = '+';
+
+		if opts.vertical then
+			local is_left = window_pos[2] <= 0
+			if is_left and not opts.increase or not is_left and opts.increase then
+				prefix = '-'
+			end
+			vim.cmd(string.format('vertical resize %s%s', prefix, opts.amount))
+		else
+			local is_top = window_pos[1] <= 0
+			if is_top and opts.increase or not is_top and not opts.increase then
+				prefix = '-'
+			end
+			vim.cmd(string.format('horizontal resize %s%s', prefix, opts.amount))
+		end
+	end
+end
+
+vim.keymap.set({ "n", "t" }, "<C-A-Up>", resize_window({ amount = '5', vertical = false, increase = true }),
+	{ desc = "Increase horizontal window size" })
+vim.keymap.set({ "n", "t" }, "<C-A-Down>", resize_window({ amount = '5', vertical = false, increase = false }),
+	{ desc = "Decrease horizontal window size" })
+vim.keymap.set({ "n", "t" }, "<C-A-Right>", resize_window({ amount = '5', vertical = true, increase = true }),
+	{ desc = "Increase vertical window size" })
+vim.keymap.set({ "n", "t" }, "<C-A-Left>", resize_window({ amount = '5', vertical = true, increase = false }),
+	{ desc = "Decrease vertical window size" })
 
 -- replace the default <C-L> with <C-C> to clear search highlights
 vim.keymap.set("n", "<C-C>", function()
