@@ -6,8 +6,8 @@ return {
 	},
 
 	config = function()
-		vim.g.loaded_netrw = 1
-		vim.g.loaded_netrwPlugin = 1
+		-- vim.g.loaded_netrw = 1
+		-- vim.g.loaded_netrwPlugin = 1
 
 		vim.opt.termguicolors = true
 
@@ -24,6 +24,8 @@ return {
 		}
 
 		require('nvim-tree').setup {
+			disable_netrw = false,
+			hijack_netrw = true,
 			actions = {
 				open_file = {
 					quit_on_open = true,
