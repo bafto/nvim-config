@@ -3,23 +3,6 @@ return {
 
 	name = 'vscode',
 
-	dependencies = {
-		'ellisonleao/gruvbox.nvim',
-
-		name = 'gruvbox',
-
-		config = function()
-			require('gruvbox').setup {
-				italic = {
-					strings = false,
-					emphasis = false,
-					comments = false,
-					options = false,
-				}
-			}
-		end
-	},
-
 	config = function()
 		function ApplyColor(color)
 			color = color or "vscode"
@@ -33,7 +16,6 @@ return {
 		end
 
 		ApplyColor()
-		-- ApplyColor('gruvbox')
 		-- SetBackgroundTransparent()
 	end,
 };
