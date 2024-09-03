@@ -3,6 +3,7 @@ local util = require('bafto.util')
 -- relative line numbers
 vim.opt.nu = true
 vim.opt.relativenumber = true
+vim.o.statuscolumn = "%s %l %r "
 
 -- indent using tabs which appear as 4 spaces
 vim.opt.tabstop = 4

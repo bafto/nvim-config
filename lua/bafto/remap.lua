@@ -65,6 +65,8 @@ vim.keymap.set("n", "<C-K>", "<C-W><C-K>", { desc = "Move window up" })
 vim.keymap.set("n", "<C-L>", "<C-W><C-L>", { desc = "Move window right" })
 -- split horizontally with just <C-W>k instead of K
 vim.keymap.set("n", "<C-W>k", "<C-W>K", { desc = "Split horizontally" })
+-- split horizontally with <C-W>h to match <C-W>v
+vim.keymap.set("n", "<C-W>h", "<C-W>s", { desc = "Split horizontally" })
 
 -- resize window with <C-A-Up/Down/Left/Right>
 
