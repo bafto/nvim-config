@@ -31,6 +31,17 @@ vim.api.nvim_create_autocmd("FileType", {
 	end
 })
 
+-- helper to set filetype for file patterns
+local function set_filetype(pattern, filetype)
+	vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+		pattern = pattern,
+		command = "set filetype=" .. filetype,
+	})
+end
+
+-- set docker-compose filetype for docker-compose ls to work
+set_filetype({ "docker-compose.yml" }, "yaml.docker-compose")
+
 -- good when adding a new line for many files
 vim.opt.smartindent = true
 
