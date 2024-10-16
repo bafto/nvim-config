@@ -53,9 +53,9 @@ return {
 
 			local builtin = require('telescope.builtin')
 			local fd_cmd = 'fd';
-			if not vim.fn.executable(fd_cmd) then
-				fd_cmd = 'fdfind';
-			end
+			-- if not vim.fn.executable(fd_cmd) then
+			-- 	fd_cmd = 'fdfind';
+			-- end
 
 			vim.keymap.set('n', '<leader>ff', function()
 				builtin.find_files {
