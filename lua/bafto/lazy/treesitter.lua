@@ -28,9 +28,6 @@ return {
 				-- Instead of true it can also be a list of languages
 				additional_vim_regex_highlighting = false,
 			},
-			autotag = {
-				enable = true,
-			},
 			playground = {
 				enable = true,
 				updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code

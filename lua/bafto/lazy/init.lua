@@ -9,14 +9,6 @@ return {
 
 		ft = 'scala',
 	},
-	{
-
-		'windwp/nvim-ts-autotag',
-
-		dependencies = {
-			'nvim-treesitter/nvim-treesitter'
-		},
-	},
 	'ThePrimeagen/vim-be-good',
 	'tpope/vim-commentary',
 }
