@@ -107,3 +107,5 @@ vim.keymap.set("n", "<C-C>", function()
 	vim.lsp.buf.clear_references()
 	return "<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>"
 end, { expr = true, desc = "Clear search highlights" })
+
+vim.keymap.set("v", "<leader>ft", ":!column -t -s '|' -o '|'<Cr>")
