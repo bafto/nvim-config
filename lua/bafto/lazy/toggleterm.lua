@@ -17,7 +17,30 @@ return {
 			size = 20,
 		}
 
-		vim.keymap.set({ 'n', 'i', 't' }, '<C-q>', '<Cmd>ToggleTerm<CR>', { desc = 'toggle terminal' })
+		local num_terminals = 0
+		local function toggleTerm(term)
+			vim.cmd(term .. 'ToggleTerm')
+		end
+		local function createTerminal()
+			num_terminals = num_terminals + 1
+			toggleTerm(tostring(num_terminals))
+		end
+		local function toggleAllTerminals()
+			if num_terminals == 0 then
+				createTerminal()
+			else
+				toggleTerm('')
+			end
+		end
+
+		vim.keymap.set({ 'n', 'i', 't' }, '<C-q>', function()
+			toggleAllTerminals()
+		end, { desc = 'toggle terminal' })
+		vim.keymap.set({ 'n', 'i', 't' }, '<C-a><C-q>', function()
+			createTerminal()
+		end, { desc = 'toggle terminal' })
+
+
 		vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'enter normal mode' })
 		vim.keymap.set('t', 'ö', [[<C-\><C-n>]], { desc = 'enter normal mode' })
 		vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], { desc = 'change window left' })
