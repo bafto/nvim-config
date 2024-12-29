@@ -30,13 +30,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "gohtml" },
-	callback = function()
-		vim.bo.filetype = 'html'
-	end
-})
-
 -- helper to set filetype for file patterns
 local function set_filetype(pattern, filetype)
 	vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {

@@ -108,4 +108,5 @@ vim.keymap.set("n", "<C-C>", function()
 	return "<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>"
 end, { expr = true, desc = "Clear search highlights" })
 
+-- easy formatting of markdown tables
 vim.keymap.set("v", "<leader>ft", ":!column -t -s '|' -o '|'<Cr>")
