@@ -56,13 +56,6 @@ return {
 			},
 			{
 				type = 'delve',
-				name = 'Debug workspace module',
-				request = 'launch',
-				mode = 'debug',
-				program = './${workspaceFolder}',
-			},
-			{
-				type = 'delve',
 				name = 'Debug DDP',
 				request = 'launch',
 				mode = 'debug',
@@ -81,6 +74,6 @@ return {
 			require('dap.ext.vscode').load_launchjs('.vscode/launch.json')
 		end
 
-		dap.set_log_level('TRACE')
+		dap.set_log_level('INFO')
 	end
 }
