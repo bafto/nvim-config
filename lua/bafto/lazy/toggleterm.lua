@@ -36,7 +36,7 @@ return {
 		vim.keymap.set({ 'n', 'i', 't' }, '<C-q>', function()
 			toggleAllTerminals()
 		end, { desc = 'toggle terminal' })
-		vim.keymap.set({ 'n', 'i', 't' }, '<C-a><C-q>', function()
+		vim.keymap.set({ 'n', 'i', 't' }, '<leader>aq', function()
 			createTerminal()
 		end, { desc = 'toggle terminal' })
 
