@@ -90,6 +90,7 @@ return {
 					'lua_ls',
 					'lemminx',
 					'terraformls',
+					'rust_analyzer',
 				},
 				handlers = {
 					-- lsp_zero.default_setup,
@@ -147,6 +148,7 @@ return {
 			lspconfig.docker_compose_language_service.setup {}
 			lspconfig.jedi_language_server.setup {}
 			lspconfig.terraformls.setup {}
+			lspconfig.rust_analyzer.setup {}
 
 			lspconfig.lemminx.setup {
 				settings = {
