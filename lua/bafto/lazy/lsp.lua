@@ -75,6 +75,7 @@ return {
 
 			require('mason').setup({})
 			require('mason-lspconfig').setup({
+				automatic_installation = true,
 				ensure_installed = {
 					'ts_ls',
 					'eslint',
@@ -289,12 +290,16 @@ return {
 			end
 
 			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = { "java" },
 				callback = function()
+					local java_home_21 = os.getenv('JAVA_HOME_21')
+					local java_exe_path = java_home_21 == nil and 'java' or java_home_21 .. '\\bin\\java'
 					require('jdtls').start_or_attach({
 						cmd = {
 							util.is_windows() and "jdtls.cmd" or "jdtls",
+							"--java-executable", java_exe_path,
 							"-configuration", vim.env.HOME .. "/.cache/jdtls/config",
 							"-data", vim.env.HOME .. "/.cache/jdtls/workspace/" .. project_name,
 							"--add-modules=ALL-SYSTEM",
