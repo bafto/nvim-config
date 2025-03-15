@@ -216,7 +216,13 @@ return {
 				},
 				xml = {
 					exclude = { 'lemminx' }
-				}
+				},
+				c = {
+					exclude = { 'clangd' }
+				},
+				cpp = {
+					exclude = { 'clangd' }
+				},
 			}
 			lsp_format.setup(format_options)
 
@@ -224,6 +230,8 @@ return {
 			conform.setup {
 				formatters_by_ft = {
 					java = { 'google-java-format' },
+					c = { 'clang-format' },
+					cpp = { 'clang-format' },
 				},
 				format_after_save = {
 					lsp_fallback = false,
@@ -272,9 +280,10 @@ return {
 
 				-- <C-f> formats the current buffer
 				vim.keymap.set("n", "<C-f>", function()
-					lsp_format.format({ buf = bufnr })
-					if client.name == 'jdtls' then
+					if client.name == 'jdtls' or client.name == 'clangd' then
 						conform.format({ async = true, bufnr = bufnr })
+					else
+						lsp_format.format({ buf = bufnr })
 					end
 				end, { desc = "Format async using LSP" })
 

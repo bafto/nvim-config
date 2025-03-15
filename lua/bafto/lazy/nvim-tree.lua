@@ -86,7 +86,7 @@ return {
 			},
 			git = {
 				enable = true,
-				timeout = 250,
+				timeout = 100,
 			},
 		}
 	end,
