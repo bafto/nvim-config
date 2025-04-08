@@ -77,7 +77,7 @@ return {
 			require('mason-lspconfig').setup({
 				automatic_installation = true,
 				ensure_installed = {
-					'ts_ls',
+					-- 'ts_ls',
 					'eslint',
 					'gopls',
 					'clangd',
@@ -142,7 +142,6 @@ return {
 			lspconfig.html.setup {
 				filetypes = { "html", "templ", "gohtml" },
 			}
-			lspconfig.ts_ls.setup {}
 			lspconfig.eslint.setup {}
 			lspconfig.cmake.setup {}
 			lspconfig.dockerls.setup {}
@@ -150,6 +149,19 @@ return {
 			lspconfig.jedi_language_server.setup {}
 			lspconfig.terraformls.setup {}
 			lspconfig.rust_analyzer.setup {}
+			-- vue lsp
+			lspconfig.volar.setup {
+				-- add filetypes for typescript, javascript and vue
+				filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+				init_options = {
+					vue = {
+						-- disable hybrid mode
+						hybridMode = false,
+					},
+				},
+			}
+			-- commented out for volar hybrid mode
+			-- lspconfig.ts_ls.setup {}
 
 			lspconfig.lemminx.setup {
 				settings = {
