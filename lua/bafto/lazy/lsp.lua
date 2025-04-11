@@ -101,11 +101,11 @@ return {
 					end,
 				}
 			})
-			require('mason-lspconfig').setup_handlers({
-				['jdtls'] = function() end
-			})
 
 			local lspconfig = require('lspconfig')
+
+			-- configured manually below
+			-- lspconfig.jdtls.setup {}
 
 			lspconfig.metals.setup {}
 
@@ -217,12 +217,14 @@ return {
 				}
 			)
 
+			local java_format_xml_path = os.getenv('JAVA_FORMAT_OPTIONS')
+
 			local lsp_format = require('lsp-format')
 			local format_options = {
-				java = {
-					exclude = { 'jdtls' },
-					tab_width = 2,
-				},
+				-- java = {
+				-- 	exclude = { 'jdtls' },
+				-- 	tab_width = 2,
+				-- },
 				sql = {
 					exclude = { 'sqls' },
 				},
@@ -236,12 +238,20 @@ return {
 					exclude = { 'clangd' }
 				},
 			}
+
+			if java_format_xml_path ~= nil then
+				format_options.java = {
+					exclude = { 'jdtls' },
+					tab_width = 2,
+				}
+			end
+
 			lsp_format.setup(format_options)
 
 			local conform = require('conform')
-			conform.setup {
+			local conform_options = {
 				formatters_by_ft = {
-					java = { 'google-java-format' },
+					-- java = { 'google-java-format' },
 					c = { 'clang-format' },
 					cpp = { 'clang-format' },
 				},
@@ -250,9 +260,15 @@ return {
 				},
 			}
 
+			if java_format_xml_path == nil then
+				conform_options.formatters_by_ft.java = { 'google-java-format' }
+			end
+
+			conform.setup(conform_options)
+
 			local function on_attach(client, bufnr)
 				-- format using the language server
-				if client.supports_method('textDocument/formatting') then
+				if client.supports_method('textDocument/formatting') or client.name == 'jdtls' then
 					lsp_format.on_attach(client)
 				end
 
@@ -292,10 +308,11 @@ return {
 
 				-- <C-f> formats the current buffer
 				vim.keymap.set("n", "<C-f>", function()
-					if client.name == 'jdtls' or client.name == 'clangd' then
+					if (java_format_xml_path == nil or java_format_xml_path == '' and client.name == 'jdtls') or client.name == 'clangd' then
 						conform.format({ async = true, bufnr = bufnr })
 					else
-						lsp_format.format({ buf = bufnr })
+						-- lsp_format.format({ buf = bufnr })
+						vim.lsp.buf.format({ async = true })
 					end
 				end, { desc = "Format async using LSP" })
 
@@ -317,7 +334,8 @@ return {
 				callback = function()
 					local java_home_21 = os.getenv('JAVA_HOME_21')
 					local java_exe_path = java_home_21 == nil and 'java' or java_home_21 .. '\\bin\\java'
-					require('jdtls').start_or_attach({
+
+					local jdtls_settings = {
 						cmd = {
 							util.is_windows() and "jdtls.cmd" or "jdtls",
 							"--java-executable", java_exe_path,
@@ -330,22 +348,36 @@ return {
 						},
 						settings = {
 							java = {
+								format = { enabled = false },
 								signatureHelp = { enabled = true },
 								contentProvider = { preferred = "fernflower" },
-								foramt = { enabled = false },
 							},
 						},
 						root_dir = vim.fs.root(0, { '.git', 'mvnw', 'gradlew' }),
-					})
+					}
+
+					if java_format_xml_path ~= nil then
+						jdtls_settings.settings.java.format = {
+							enabled = true,
+							comments = { enabled = true },
+							insertSpaces = true,
+							tabSize = 3,
+							settings = {
+								url = java_format_xml_path,
+								profile = 'dsCodeFormatter',
+							},
+						}
+					end
+					require('jdtls').start_or_attach(jdtls_settings)
 				end
 			})
 
-			-- only call on_attach ones, as the last one will overwrite the previous ones
+			-- only call on_attach once, as the last one will overwrite the previous ones
 			lsp_zero.on_attach(on_attach)
 
 			vim.api.nvim_create_user_command('StopLsp', function()
-				for i, server in ipairs(vim.lsp.get_clients()) do
-					vim.lsp.get_client_by_id(server.id).stop()
+				for _, server in ipairs(vim.lsp.get_clients()) do
+					vim.lsp.get_client_by_id(server.id).stop(false)
 				end
 			end, { desc = 'stops all language servers' })
 		end
