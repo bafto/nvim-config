@@ -308,7 +308,7 @@ return {
 
 				-- <C-f> formats the current buffer
 				vim.keymap.set("n", "<C-f>", function()
-					if (java_format_xml_path == nil or java_format_xml_path == '' and client.name == 'jdtls') or client.name == 'clangd' then
+					if ((java_format_xml_path == nil or java_format_xml_path == '') and client.name == 'jdtls') or client.name == 'clangd' then
 						conform.format({ async = true, bufnr = bufnr })
 					else
 						-- lsp_format.format({ buf = bufnr })
