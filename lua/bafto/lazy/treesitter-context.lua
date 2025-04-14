@@ -4,7 +4,9 @@ return {
 		'nvim-treesitter/nvim-treesitter',
 	},
 	config = function()
-		require('treesitter-context').setup {}
+		require('treesitter-context').setup {
+			max_lines = 4,
+		}
 
 		vim.keymap.set('n', '<leader>gc', function()
 			require('treesitter-context').go_to_context(vim.v.count1)
