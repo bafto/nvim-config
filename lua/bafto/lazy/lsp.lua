@@ -268,7 +268,7 @@ return {
 
 			local function on_attach(client, bufnr)
 				-- format using the language server
-				if client.supports_method('textDocument/formatting') or client.name == 'jdtls' then
+				if client:supports_method('textDocument/formatting') or client.name == 'jdtls' then
 					lsp_format.on_attach(client)
 				end
 
@@ -317,7 +317,7 @@ return {
 				end, { desc = "Format async using LSP" })
 
 				-- <leader>hr highlights references
-				local highlight_supported = client.supports_method('textDocument/documentHighlight')
+				local highlight_supported = client:supports_method('textDocument/documentHighlight')
 				vim.keymap.set('n', '<leader>dh', function()
 					if highlight_supported then
 						vim.lsp.buf.document_highlight()
