@@ -1,5 +1,8 @@
 local util = require('bafto.util')
 
+-- respect .editorconfig
+vim.g.editorconfig = true
+
 -- relative line numbers
 vim.opt.nu = true
 vim.opt.relativenumber = true
