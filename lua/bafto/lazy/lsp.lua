@@ -173,6 +173,10 @@ return {
 				}
 			}
 
+			lspconfig.dartls.setup {
+				cmd = { 'dart', 'language-server', '--protocol=lsp' }
+			}
+
 			-- DDP setup
 			vim.filetype.add({
 				extension = {
