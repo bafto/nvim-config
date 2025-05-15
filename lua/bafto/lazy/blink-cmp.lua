@@ -11,6 +11,7 @@ return {
 			["<C-K>"] = { "select_prev", "snippet_backward", "fallback" },
 			["<C-J>"] = { "select_next", "snippet_forward", "fallback" },
 			["<C-L>"] = { "accept", "fallback" },
+			["<Tab>"] = { "accept", "fallback" },
 			["<Esc>"] = { "hide", "fallback" },
 			["<PageUp>"] = { "scroll_documentation_up", "fallback" },
 			["<PageDown>"] = { "scroll_documentation_down", "fallback" },
@@ -20,13 +21,20 @@ return {
 			nerd_font_variant = 'mono'
 		},
 
-		completion = { documentation = { auto_show = false } },
+		completion = {
+			documentation = { auto_show = false },
+			list = {
+				selection = {
+					auto_insert = false,
+				}
+			}
+		},
 
 		sources = {
 			default = { 'lsp', 'path', 'snippets', 'buffer' },
 		},
 
-		fuzzy = { implementation = "prefer_rust_with_warning" }
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 	},
 	opts_extend = { "sources.default" }
 }
