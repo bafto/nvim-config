@@ -1,389 +1,143 @@
 return {
-	{
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v3.x',
-		lazy = true,
-		config = false,
-		init = function()
-			-- Disable automatic setup, we are doing it manually
-			vim.g.lsp_zero_extend_cmp = 0
-			vim.g.lsp_zero_extend_lspconfig = 0
-		end,
-	},
-	{
-		'williamboman/mason.nvim',
-		lazy = false,
-		config = true,
+	"neovim/nvim-lspconfig",
+
+	dependencies = {
+		"mason-org/mason.nvim",
+		"mason-org/mason-lspconfig.nvim",
 	},
 
-	-- Autocompletion
-	{
-		'hrsh7th/nvim-cmp',
-		dependencies = {
-			'hrsh7th/nvim-cmp',
-			'hrsh7th/cmp-nvim-lsp',
-			'hrsh7th/cmp-buffer',
-			'hrsh7th/cmp-path',
-			'hrsh7th/cmp-nvim-lua',
-			'rafamadriz/friendly-snippets',
-			'saadparwaiz1/cmp_luasnip',
-			'L3MON4D3/LuaSnip',
-		},
-		event = 'InsertEnter',
-		config = function()
-			local lsp_zero = require('lsp-zero')
-			lsp_zero.extend_cmp()
+	config = function()
+		-- require('mason-lspconfig').setup {
+		-- 	automatic_enable = false
+		-- }
 
-			local cmp = require('cmp')
-			local cmp_select = { behavior = cmp.SelectBehavior.Select }
+		require('mason').setup {}
+		require('mason-lspconfig').setup {}
+		vim.lsp.enable({
+			'lua_ls',
+			'gopls',
+			'jdtls',
+			'clangd',
+			'dartls',
+			'pyright',
+			'volar',
+			'cmake',
+			'docker_compose_language_service',
+			'dockerls',
+			'eslint',
+			'html',
+			'lemminx',
+			'rust_analyzer',
+			'sqls',
+			'staticcheck',
+			'terraformls',
+		})
 
-			cmp.setup({
-				sources = {
-					{ name = 'path' },
-					{ name = 'nvim_lsp' },
-					{ name = 'nvim_lua' },
-					{ name = 'luasnip', keyword_length = 2 },
-					{ name = 'buffer',  keyword_length = 3 },
-				},
-				formatting = lsp_zero.cmp_format({}),
-				mapping = cmp.mapping.preset.insert({
-					['<C-K>'] = cmp.mapping.select_prev_item(cmp_select),
-					['<C-J>'] = cmp.mapping.select_next_item(cmp_select),
-					['<C-L>'] = cmp.mapping.confirm({ select = true }),
-					['<C-Space>'] = cmp.mapping.complete(),
-				}),
-			})
-		end,
-	},
-
-	-- LSP
-	{
-		'neovim/nvim-lspconfig',
-		dependencies = {
-			'hrsh7th/cmp-nvim-lsp',
-			'williamboman/mason-lspconfig.nvim',
-			'ray-x/lsp_signature.nvim',
-			'lukas-reineke/lsp-format.nvim',
-			'stevearc/conform.nvim',
-			'mfussenegger/nvim-jdtls',
-		},
-		event = { 'BufReadPre', 'BufNewFile' },
-		cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
-		config = function()
-			local util = require('bafto.util')
-			local lsp_zero = require('lsp-zero')
-
-			require('mason').setup({})
-			require('mason-lspconfig').setup({
-				automatic_installation = true,
-				ensure_installed = {
-					-- 'ts_ls',
-					'eslint',
-					'gopls',
-					'clangd',
-					'cmake',
-					'dockerls',
-					'docker_compose_language_service',
-					'html',
-					'jdtls',
-					'jedi_language_server',
-					'sqls',
-					'lua_ls',
-					'lemminx',
-					'terraformls',
-					'rust_analyzer',
-				},
-				handlers = {
-					-- lsp_zero.default_setup,
-					lua_ls = function()
-						local lua_opts = lsp_zero.nvim_lua_ls()
-						require('lspconfig').lua_ls.setup(lua_opts)
-					end,
-				}
-			})
-
-			local lspconfig = require('lspconfig')
-
-			-- configured manually below
-			-- lspconfig.jdtls.setup {}
-
-			lspconfig.metals.setup {}
-
-			lspconfig.gopls.setup {
-				settings = {
-					gopls = {
-						analyses = {
-							unusedparams = true,
-						},
-						staticcheck = true,
-						gofumpt = true,
+		vim.lsp.config['gopls'] = {
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
 					},
+					staticcheck = true,
+					gofumpt = true,
 				},
-			}
+			},
+		}
 
-			local clangd_capabilities = vim.lsp.protocol.make_client_capabilities()
-			clangd_capabilities.offsetEncoding = 'utf-8'
-			lspconfig.clangd.setup {
-				capabilities = clangd_capabilities,
-				cmd = {
-					'clangd',
-					'--background-index',
-					'-j=2',
-					'--clang-tidy',
-					'--enable-config',
-					'--all-scopes-completion',
-					'--header-insertion=never',
-					'--completion-style=detailed',
+		vim.lsp.config['clangd'] = {
+			cmd = {
+				'clangd',
+				'--background-index',
+				'-j=2',
+				'--clang-tidy',
+				'--enable-config',
+				'--all-scopes-completion',
+				'--header-insertion=never',
+				'--completion-style=detailed',
+			},
+			root_markers = { '.clangd', '.clang-format', 'compile_commands.json', '.git' }
+		}
+
+		vim.lsp.config['html'] = {
+			filetypes = { "html", "templ", "gohtml" },
+		}
+
+		vim.lsp.config['volar'] = {
+			filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+			init_options = {
+				vue = {
+					-- disable hybrid mode
+					hybridMode = false,
 				},
-				root_dir = lspconfig.util.root_pattern('compile_commands.json', '.git', '.clangd', '.clang-format')
-			}
+			},
+		}
 
+		vim.lsp.config['dartls'] = {
+			cmd = { 'dart', 'language-server', '--protocol=lsp' },
+			filetypes = { 'dart' },
+		}
 
-			lspconfig.html.setup {
-				filetypes = { "html", "templ", "gohtml" },
-			}
-			lspconfig.eslint.setup {}
-			lspconfig.cmake.setup {}
-			lspconfig.dockerls.setup {}
-			lspconfig.docker_compose_language_service.setup {}
-			lspconfig.jedi_language_server.setup {}
-			lspconfig.terraformls.setup {}
-			lspconfig.rust_analyzer.setup {}
-			-- vue lsp
-			lspconfig.volar.setup {
-				-- add filetypes for typescript, javascript and vue
-				filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-				init_options = {
-					vue = {
-						-- disable hybrid mode
-						hybridMode = false,
-					},
-				},
-			}
-			-- commented out for volar hybrid mode
-			-- lspconfig.ts_ls.setup {}
+		vim.api.nvim_create_autocmd("LspAttach", {
+			desc = "LSP actions",
+			callback = function(args)
+				local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+				if not client then
+					return
+				end
 
-			lspconfig.lemminx.setup {
-				settings = {
-					xml = {
-						format = {
-							enabled = false,
-						}
-					}
-				}
-			}
-
-			lspconfig.dartls.setup {
-				cmd = { 'dart', 'language-server', '--protocol=lsp' }
-			}
-
-			-- DDP setup
-			vim.filetype.add({
-				extension = {
-					ddp = 'ddp',
-				},
-			})
-
-			local lspconfig_configs = require('lspconfig.configs')
-			if not lspconfig_configs.ddpls then
-				lspconfig_configs.ddpls = {
-					default_config = {
-						name = 'DDPLS',
-						cmd = { 'DDPLS' },
-						filetypes = { 'ddp' },
-						root_dir = lspconfig.util.root_pattern('.git') or vim.fn.getcwd(),
-					},
-				}
-			end
-
-			lspconfig.ddpls.setup {}
-
-			vim.api.nvim_create_augroup("AutoImports", {})
-
-			vim.api.nvim_create_autocmd(
-				"BufWritePost",
-				{
-					group = "AutoImports",
-					pattern = "*.go",
+				-- Format and autoimport on Save
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					buffer = args.buf,
 					callback = function()
-						local params = vim.lsp.util.make_range_params()
-						params.context = { only = { "source.organizeImports" } }
-						local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-						for cid, res in pairs(result or {}) do
-							for _, r in pairs(res.result or {}) do
-								if r.edit then
-									local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-8"
-									vim.lsp.util.apply_workspace_edit(r.edit, enc)
+						if client:supports_method("textDocument/formatting") then
+							vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+						end
+
+						if client:supports_method("textDocument/codeAction") then
+							local function apply_code_action(action_type)
+								local ctx = { only = action_type, diagnostics = {} }
+								local actions = vim.lsp.buf.code_action({ context = ctx, apply = true, return_actions = true })
+
+								-- only apply if code action is available
+								if actions and #actions > 0 then
+									vim.lsp.buf.code_action({ context = ctx, apply = true })
 								end
 							end
+							apply_code_action({ "source.fixAll" })
+							apply_code_action({ "source.organizeImports" })
 						end
-					end
-				}
-			)
-
-			local java_format_xml_path = os.getenv('JAVA_FORMAT_OPTIONS')
-
-			local lsp_format = require('lsp-format')
-			local format_options = {
-				-- java = {
-				-- 	exclude = { 'jdtls' },
-				-- 	tab_width = 2,
-				-- },
-				sql = {
-					exclude = { 'sqls' },
-				},
-				xml = {
-					exclude = { 'lemminx' }
-				},
-				c = {
-					exclude = { 'clangd' }
-				},
-				cpp = {
-					exclude = { 'clangd' }
-				},
-			}
-
-			if java_format_xml_path ~= nil then
-				format_options.java = {
-					exclude = { 'jdtls' },
-					tab_width = 2,
-				}
-			end
-
-			lsp_format.setup(format_options)
-
-			local conform = require('conform')
-			local conform_options = {
-				formatters_by_ft = {
-					-- java = { 'google-java-format' },
-					c = { 'clang-format' },
-					cpp = { 'clang-format' },
-				},
-				format_after_save = {
-					lsp_fallback = false,
-				},
-			}
-
-			if java_format_xml_path == nil then
-				conform_options.formatters_by_ft.java = { 'google-java-format' }
-			end
-
-			conform.setup(conform_options)
-
-			local function on_attach(client, bufnr)
-				-- format using the language server
-				if client:supports_method('textDocument/formatting') or client.name == 'jdtls' then
-					lsp_format.on_attach(client)
-				end
-
-				-- show signature help
-				require('lsp_signature').on_attach({
-					hint_prefix = "",
-					bind = true,
-					doc_lines = 0,
+					end,
 				})
 
-				-- use telescope for some lsp stuff
+				-- Lsp Keymaps
+				local nmap = function(keys, func, desc)
+					if desc then
+						desc = "LSP: " .. desc
+					end
+					vim.keymap.set("n", keys, func, { buffer = args.buf, noremap = true, silent = true, desc = desc })
+				end
+
 				local telescope = require('telescope.builtin')
 
-				vim.keymap.set('n', 'gr', telescope.lsp_references, { desc = 'goto references' })
-				vim.keymap.set('n', 'gd', telescope.lsp_definitions, { desc = 'goto definition' })
-				vim.keymap.set('n', 'gi', telescope.lsp_implementations, { desc = 'goto implementation' })
-				vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { desc = 'goto type definition' })
-				vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, { desc = 'display signature' })
-				vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { desc = 'rename' })
-				vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = 'get diagnostics' })
-				vim.keymap.set('n', '<leader>gn', vim.diagnostic.goto_next, { desc = 'goto next diagnostic' })
-				vim.keymap.set('n', '<leader>gN', vim.diagnostic.goto_next, { desc = 'goto next diagnostic' })
+				nmap("K", vim.lsp.buf.hover, "Open hover")
+				nmap("<leader>r", vim.lsp.buf.rename, "Rename")
+				nmap("gr", telescope.lsp_references, "References")
+				nmap("gd", telescope.lsp_definitions, "Goto definition")
+				nmap("gi", telescope.lsp_implementations, "Goto implementation")
 
-				-- list workspace folders
-				vim.keymap.set('n', '<leader>lwf', function()
-					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-				end, { desc = 'list workspace folders' })
-				vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'hover' })
+				-- Diagnostic
+				nmap("gn", function()
+					vim.diagnostic.jump({ count = 1, float = true })
+				end, "Goto next diagnostic")
+				nmap("gN", function()
+					vim.diagnostic.jump({ count = -1, float = true })
+				end, "Goto prev diagnostic")
+				nmap("gl", vim.diagnostic.open_float, "Open diagnostic float")
+				nmap("gs", vim.lsp.buf.signature_help, "Signature Help")
 
-				-- quickfix
-				vim.keymap.set('n', '<leader>qf', function()
-					vim.lsp.buf.code_action({
-						filter = function(a) return a.isPreferred end,
-						apply = true,
-					})
-				end, { desc = 'quickfix' })
-
-				-- <C-f> formats the current buffer
-				vim.keymap.set("n", "<C-f>", function()
-					if ((java_format_xml_path == nil or java_format_xml_path == '') and client.name == 'jdtls') or client.name == 'clangd' then
-						conform.format({ async = true, bufnr = bufnr })
-					else
-						-- lsp_format.format({ buf = bufnr })
-						vim.lsp.buf.format({ async = true })
-					end
-				end, { desc = "Format async using LSP" })
-
-				-- <leader>hr highlights references
-				local highlight_supported = client:supports_method('textDocument/documentHighlight')
-				vim.keymap.set('n', '<leader>dh', function()
-					if highlight_supported then
-						vim.lsp.buf.document_highlight()
-					else
-						print('Document Highlight not supported')
-					end
-				end, { desc = 'highlight references' })
+				nmap("<C-F>", vim.lsp.buf.format, "Format current buffer")
 			end
-
-			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "java" },
-				callback = function()
-					local java_home_21 = os.getenv('JAVA_HOME_21')
-					local java_exe_path = java_home_21 == nil and 'java' or java_home_21 .. '\\bin\\java'
-
-					local jdtls_settings = {
-						cmd = {
-							util.is_windows() and "jdtls.cmd" or "jdtls",
-							"--java-executable", java_exe_path,
-							"-configuration", vim.env.HOME .. "/.cache/jdtls/config",
-							"-data", vim.env.HOME .. "/.cache/jdtls/workspace/" .. project_name,
-							"--add-modules=ALL-SYSTEM",
-							"--add-opens java.base/java.util=ALL-UNNAMED",
-							"--add-opens java.base/java.lang=ALL-UNNAMED",
-							"-Xmx2g",
-						},
-						settings = {
-							java = {
-								format = { enabled = false },
-								signatureHelp = { enabled = true },
-								contentProvider = { preferred = "fernflower" },
-							},
-						},
-						root_dir = vim.fs.root(0, { '.git', 'mvnw', 'gradlew' }),
-					}
-
-					if java_format_xml_path ~= nil then
-						jdtls_settings.settings.java.format = {
-							enabled = true,
-							comments = { enabled = true },
-							insertSpaces = true,
-							tabSize = 3,
-							settings = {
-								url = java_format_xml_path,
-								profile = 'dsCodeFormatter',
-							},
-						}
-					end
-					require('jdtls').start_or_attach(jdtls_settings)
-				end
-			})
-
-			-- only call on_attach once, as the last one will overwrite the previous ones
-			lsp_zero.on_attach(on_attach)
-
-			vim.api.nvim_create_user_command('StopLsp', function()
-				for _, server in ipairs(vim.lsp.get_clients()) do
-					vim.lsp.get_client_by_id(server.id).stop(false)
-				end
-			end, { desc = 'stops all language servers' })
-		end
-	},
+		})
+	end
 }
