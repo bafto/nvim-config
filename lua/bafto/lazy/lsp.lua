@@ -122,6 +122,7 @@ return {
 
 				nmap("K", vim.lsp.buf.hover, "Open hover")
 				nmap("<leader>r", vim.lsp.buf.rename, "Rename")
+				nmap("<leader>dh", vim.lsp.buf.document_highlight, "Rename")
 				nmap("gr", telescope.lsp_references, "References")
 				nmap("gd", telescope.lsp_definitions, "Goto definition")
 				nmap("gi", telescope.lsp_implementations, "Goto implementation")
