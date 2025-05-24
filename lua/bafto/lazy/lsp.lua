@@ -20,7 +20,7 @@ return {
 			'clangd',
 			'dartls',
 			'pyright',
-			'volar',
+			'vue_ls',
 			'cmake',
 			'docker_compose_language_service',
 			'dockerls',
@@ -63,7 +63,7 @@ return {
 			filetypes = { "html", "templ", "gohtml" },
 		}
 
-		vim.lsp.config['volar'] = {
+		vim.lsp.config['vue_ls'] = {
 			filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
 			init_options = {
 				vue = {
@@ -104,7 +104,6 @@ return {
 									vim.lsp.buf.code_action({ context = ctx, apply = true })
 								end
 							end
-							apply_code_action({ "source.fixAll" })
 							apply_code_action({ "source.organizeImports" })
 						end
 					end,
