@@ -15,6 +15,7 @@ return {
 	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 	{                                     -- optional completion source for require statements and module annotations
 		"hrsh7th/nvim-cmp",
+		enabled = false,
 		opts = function(_, opts)
 			opts.sources = opts.sources or {}
 			table.insert(opts.sources, {
