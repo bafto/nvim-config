@@ -78,6 +78,11 @@ return {
 			filetypes = { 'dart' },
 		}
 
+		vim.lsp.config['rust_analyzer'] = {
+			filetypes = { 'rust' },
+		}
+
+
 		vim.api.nvim_create_autocmd("LspAttach", {
 			desc = "LSP actions",
 			callback = function(args)
@@ -135,6 +140,7 @@ return {
 				end, "Goto prev diagnostic")
 				nmap("gl", vim.diagnostic.open_float, "Open diagnostic float")
 				nmap("gs", vim.lsp.buf.signature_help, "Signature Help")
+				nmap("gq", vim.lsp.buf.code_action, "Apply fix")
 
 				nmap("<C-F>", vim.lsp.buf.format, "Format current buffer")
 			end
