@@ -31,6 +31,7 @@ return {
 			'sqls',
 			'staticcheck',
 			'terraformls',
+			'powershell-editor-services'
 		})
 
 		vim.lsp.config['gopls'] = {
@@ -82,6 +83,45 @@ return {
 			filetypes = { 'rust' },
 		}
 
+
+		vim.lsp.config['powershell-editor-services'] = {
+			filetypes = { 'ps1' }
+		}
+
+		local util = require('bafto.util')
+		local java_format_xml_path = os.getenv('JAVA_FORMAT_OPTIONS')
+		local java_home_21 = os.getenv('JAVA_HOME_21')
+		local java_exe_path = java_home_21 == nil and 'java' or java_home_21 .. '\\bin\\java'
+		local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+		vim.lsp.config['jdtls'] = {
+			cmd = {
+				util.is_windows() and "jdtls.cmd" or "jdtls",
+				"--java-executable", java_exe_path,
+				"-configuration", vim.env.HOME .. "/.cache/jdtls/config",
+				"-data", vim.env.HOME .. "/.cache/jdtls/workspace/" .. project_name,
+				"--add-modules=ALL-SYSTEM",
+				"--add-opens java.base/java.util=ALL-UNNAMED",
+				"--add-opens java.base/java.lang=ALL-UNNAMED",
+				"-Xmx2g",
+			},
+			settings = {
+				java = {
+					format = {
+						enabled = false,
+						comments = { enabled = true },
+						insertSpaces = true,
+						tabSize = 3,
+						settings = {
+							url = java_format_xml_path,
+							profile = 'dsCodeFormatter',
+						},
+					},
+					signatureHelp = { enabled = true },
+					contentProvider = { preferred = "fernflower" },
+				},
+			},
+			root_dir = vim.fs.root(0, { '.git', 'mvnw', 'gradlew' }),
+		}
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			desc = "LSP actions",

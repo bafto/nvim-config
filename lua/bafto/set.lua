@@ -92,6 +92,7 @@ if (util.is_windows()) and vim.fn.executable("bash.exe") then
 	vim.o.shell = vim.fn.exepath("bash.exe")
 	vim.o.shellcmdflag = "-c"
 	vim.o.shellxquote = ""
+	vim.o.shellquote = ""
 end
 
 -- no shada or swap files, they only cause problems for me
