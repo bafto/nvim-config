@@ -110,3 +110,6 @@ end, { expr = true, desc = "Clear search highlights" })
 
 -- easy formatting of markdown tables
 vim.keymap.set("v", "<leader>ft", ":!column -t -s '|' -o '|'<Cr>")
+
+vim.keymap.set("n", "<C-N>", "<CMD>bnext<CR>")
+vim.keymap.set("n", "<C-B>", "<CMD>bprev<CR>")
